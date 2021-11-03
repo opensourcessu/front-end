@@ -59,17 +59,38 @@ function realTimeWeather() {
 
 
 
+
+
+
 $.ajax({       
+
+
+
+
+    
 
     url: ForecastGribURL
     ,type: 'get'
-    
-    ,done: function(msg) {
-     console.log("hihihi");
+    ,dataType: 'jsonp'
+    // , jsonp: 'callback'
+    // ,dataType: 'text json'
+    // ,contentType:'text'
+    // ,data: JSON.stringify()
 
+   
+
+
+        // ,dataType:'text'
+
+    , headers: {'access-control-allow-origin':'*'}
+
+    // ,asnc: true
+    
+    ,success: function(msg) {
+        alert(JSON.stringify(msg));
        var text = msg.responseText,
        text = text.replace(/(<([^>]+)>)/ig,""); //HTML 태그 모두 공백으로 대체
- text = '[' + text + ']';
+        text = '[' + text + ']';
        var json = $.parseJSON(text);
 
        console.log(json);
@@ -111,5 +132,10 @@ $.ajax({
                    }    
                } //if 종료
         } //success func 종료
+        ,error: function(data){
+
+            console.log('에러'+ data);
+            console.log('에러'+ JSON.stringify(data));
+        }
     })    
 }
