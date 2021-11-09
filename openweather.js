@@ -7,6 +7,9 @@ const getJson = function(url,callback) {
         const status = xhr.status;
         if(status == 200){
             console.log(xhr.response);
+
+            loadWeather(xhr.response);
+
         }else{
             console.log(xhr.response);
         }
@@ -20,21 +23,24 @@ const getJson = function(url,callback) {
 
 
 
-getJson('http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=49f2a44ba633f02db2d706240b4c42d4'),
+getJson('http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=49f2a44ba633f02db2d706240b4c42d4&units=metric'),
 function(err,data){
     if(err!== null){
         alert('sorry,');
     }else{
-        loadWeather(data);
+
+        console.log(data);
+        // loadWeather(data);
     }
 }
 
 function loadWeather(data){
+
     let location = document.querySelector('.location');
-    let currentTime = document.querySelector('.currenct-time');
+    let currentTime = document.querySelector('.current-time');
     let currentTemp = document.querySelector('.current-temp');
     let feelsLike = document.querySelector('.feels-like');
-    let minTemp = document.querySelector(',min-temp');
+    let minTemp = document.querySelector('.min-temp');
     let maxTemp = document.querySelector('.max-temp');
     let icon = document.querySelector('.icon');
     let weatherIcon = data.weather[0].icon;
@@ -45,14 +51,16 @@ function loadWeather(data){
     let hours = date.getHours();
     let minutes = date.getMinutes();
 
+
+
     location.append(data.name);
-    currentTemp.append('$(data.min.temp}');
-    feelsLike.append('${data.main.feels_like}');
-    maxTemp.append('최고 ${data.main.temp_max}');
-    minTemp.append('최저 ${data.main.temp_min}');
+    currentTemp.append(data.main.temp);
+    feelsLike.append(data.main.feels_like);
+    maxTemp.append(data.main.temp_max);
+    minTemp.append(data.main.temp_min);
 
-    icon.innerHTML = '<img src = http://openweathermap.org/img/wn/${weatherIcon}.png>';
+    // icon.innerHTML = '<img src = http://openweathermap.org/img/wn/${weatherIcon}.png>';
 
-    currentTime.append('${month}월 ${day}일 ${hours} : ${minutes}');
+    currentTime.append(month+'월'+ day + '일 '+hours +':' +minutes);
 
 }
