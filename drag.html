@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Drag</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <style>
+  body {
+    margin-left:10%;
+    margin-right:10%;
+  }
+  .column {
+    width: 600px;
+    float: left;
+    padding-bottom: 100px;
+  }
+
+  .portlet {
+    margin: 0 1em 1em 0;
+    padding: 0.3em;
+  }
+  .portlet-header {
+    padding: 0.2em 0.3em;
+    margin-bottom: 0.5em;
+    position: relative;
+  }
+  .portlet-toggle {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    margin-top: -8px;
+  }
+  .portlet-content {
+    padding: 0.4em;
+  }
+  .portlet-placeholder {
+    border: 1px dotted black;
+    margin: 0 1em 1em 0;
+    height: 50px;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( ".column" ).sortable({
+      connectWith: ".column",
+      handle: ".portlet-header",
+      cancel: ".portlet-toggle",
+      placeholder: "portlet-placeholder ui-corner-all"
+    });
+ 
+    $( ".portlet" )
+      .addClass( "ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" )
+      .find( ".portlet-header" )
+        .addClass( "ui-widget-header ui-corner-all" )
+        .prepend( "<span class='ui-icon ui-icon-minusthick portlet-toggle'></span>");
+ 
+    $( ".portlet-toggle" ).on( "click", function() {
+      var icon = $( this );
+      icon.toggleClass( "ui-icon-minusthick ui-icon-plusthick" );
+      icon.closest( ".portlet" ).find( ".portlet-content" ).toggle();
+    });
+  } );
+  </script>
+</head>
+<body>
+ 
+<div class="column">
+ 
+  <div class="portlet">
+    <div class="portlet-header">searchBar</div>
+    <div class="portlet-content">
+      <div class="searchBar" style="width:100%; height:100px; background-color:red">
+        <p style="font-size:30px;">searchBar</p></div>
+    </div>
+  </div>
+ 
+  <div class="portlet">
+    <div class="portlet-header">Calendar</div>
+    <div class="portlet-content">
+      <div class="calendar" style="width:100%; height:300px; background-color:yellow">
+        <p style="font-size:40px">Calendar</p>
+      </div>
+    </div>
+  </div>
+ 
+</div>
+ 
+<div class="column" style="width:300px">
+ 
+  <div class="portlet">
+    <div class="portlet-header">Photo</div>
+    <div class="portlet-content">
+      <div class="photo" style="width:240px; height:240px; background-color:greenyellow;">
+        <p style="font-size:30px;">Photo</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="portlet">
+    <div class="portlet-header">Photo2</div>
+      <div class="portlet-content">
+        <div class="photo2" style="width:240px; height:240px; background-color: skyblue;">
+          <p style="font-size:30px;">Photo2</p>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="column" style="width:300px">
+  <div class="portlet">
+    <div class="portlet-header">Weather</div>
+    <div class="portlet-content">
+      <div class="weather"style="width:240px; height:300px; background-color:purple;">
+        <p style="font-size:30px;">Weather</p>
+      </div>
+    </div>
+  </div>
+</div>
+  
+ 
+</body>
+</html>
