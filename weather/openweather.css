@@ -1,0 +1,18 @@
+*{
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 30px;
+
+}
+
+
+
+.wrap {
+    width: 30%;
+    height: 600px;
+    background: pink;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
