@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="robots" content="index, follow">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+		<title>Google</title>
+		<meta name="description" content="Search on google with a brand new custom good looking page!"/>
+		<meta name="author" content="Sheyas Daniel <shreyasdaniel2001@yahoo.co.in>"/>
+		<link rel="shortcut icon" href="Images/search.ico" />
+		<link rel="stylesheet" type="text/css" href="CSS/home.css">
+	    <link rel="stylesheet" type="text/css" href="CSS/fontawesome.css">
+		<link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
+	</head>
+
+	<body>
+		<div class="btn_wrap">
+			<button class="login_btn">login</button>
+		</div>
+	    <div id="webpage">
+	        <div id="menuholder">
+	            <a class="menu" href="#0" onclick="init();"><img src="Images/네이버.png"></a>
+				<a class="menu" href="#0" onclick="ggmode();"><img src="Images/구글.png"></a>
+				<a class="menu" href="#0" onclick="fcmode();"><img src="Images/페북.png"></a>
+				<a class="menu" href="#0" onclick="gitmode();"><img src="Images/깃.png"></a>
+				<a class="menu" href="#0" onclick="dmode();"><img src="Images/다음.png"></a>
+
+	        </div>
+	        <input id="srch" name="searchbox" type="text" autocomplete="off" maxlength="255" onkeydown="return openurl(event);"
+	            autofocus />
+	    </div>
+
+	    <script src="JS/control.js"></script>
+
+	</body>
+</html>
