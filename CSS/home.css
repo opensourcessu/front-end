@@ -9,7 +9,12 @@ html {
 
 }
 
+
 #menuholder {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 50px;
     margin: 0% 2% 0% 0%;
     text-align: center;
 }
@@ -27,7 +32,7 @@ button {
 }
 
 a {
-  border: none;
+    border: none;
 	background: #3a7999;
 	color: #f2f2f2;
 	padding: 10px;
@@ -70,9 +75,9 @@ a:hover:before {
 	width: 96%;
 }
 
-.menu {
+.menu {/*
     margin: 17% 0% 0% 0%;
-    padding: 0% 0.3% 0% 0.3%;
+    padding: 0% 0.3% 0% 0.3%;*/
     font-family: 'Roboto', sans-serif;
     text-decoration: none;
     background-color: transparent;
@@ -80,7 +85,7 @@ a:hover:before {
     font-size: 1.5vw;
     color: #000;
     display: inline-block;
-    margin-left: 20px;
+    margin-left: 10px;
 }
 
 .menu:hover {
@@ -89,10 +94,10 @@ a:hover:before {
 
 #srch {
     position: absolute;
-    top: 50%;
+    top: 12%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 2vw;
+    height: 1vw;
     width: 60vw;
     background-color: #fff;
     border: 4px #04CF5C solid;
@@ -124,3 +129,4 @@ a:hover:before {
     color: #777777;
     opacity: 1;
 }
+
