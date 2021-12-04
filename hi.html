@@ -122,50 +122,51 @@
             document.getElementById("4 6").innerHTML = photo;
                 
             var todo = `
-                <div id="container">
-            
-                <div id="header"> To Do List </div>
+                    <div id="container">
 
-                <div class="task-list task-container" id="pending">
-                    <h3>할 일</h3>
+                    <div id="header"> To Do List </div>
 
-                </div>
-
-                <div class="task-list task-container" id="inProgress">
-                    <h3>진행중</h3>
-                </div>
-
-                <div class="task-list task-container" id="completed">
-                    <h3>완료</h3>
-                </div>
-
-                <div class="task-list">
-                    <h3>할 일 추가하기</h3>
-                    <form id="todo-form">
-                        <input type="text" placeholder="제목" />
-                        <textarea placeholder="설명"></textarea>
-                        <input type="date" id="datepicker" placeholder="날짜 (dd/mm/yyyy)" />
-                        <input type="button" class="btn btn-primary" value="추가하기" onclick="todo.add();" />
-                    </form>
-                
-                    <input type="button" class="btn btn-primary" value="지우기" onclick="todo.clear();" />
-                
-                    <div id="delete-div" ">
-                        지우려면 여기로 드래그 하세요
+                    <div class="task-list task-container" id="pending">
+                        <h3>할 일</h3>
+                        <!--<div class="todo-task">
+                            <div class="task-header">Sample Header</div>
+                            <div class="task-date">25/06/1992</div>
+                            <div class="task-description">Lorem Ipsum Dolor Sit Amet</div>
+                        </div>-->
                     </div>
-                </div>
 
-                <div style="clear:both;"></div>
+                    <div class="task-list task-container" id="inProgress">
+                        <h3>진행중</h3>
+                    </div>
 
-               </div>
+                    <div class="task-list task-container" id="completed">
+                        <h3>완료</h3>
+                    </div>
+
+                    <div class="task-list">
+                        <h3>할 일 추가하기</h3>
+                        <form id="todo-form">
+                            <input type="text" placeholder="제목" />
+                            <textarea placeholder="설명"></textarea>
+                            <input type="date" id="datepicker" placeholder="날짜 (yyyy-mm-dd)" />
+                            <input type="button" class="btn btn-primary" value="추가하기" onclick="moving();todo.add();" />
+                        </form>
+                    
+                        <input type="button" class="btn btn-primary" value="지우기" onclick="todo.clear();" />
+                    
+                        <div id="delete-div">
+                            지우려면 여기로 드래그 하세요
+                        </div>
+                    </div>
+
+                    <div style="clear:both;"></div>
+                    </div>
                `;
              
 
             document.getElementById("7 10").innerHTML = todo;
 
-            // $(".task-container").droppable();
-            //     $(".todo-task").draggable({ revert: "valid", revertDuration:200 });
-            //         todo.init();
+
             </script>
             
 
@@ -173,20 +174,22 @@
     </div>
 
     <script src="/weather/openweather.js"></script>
-<script src="photo/photo.js"></script>
-<script type="text/javascript" src="todolist/lib/jQuery/jquery.min.js"></script>
-<script type="text/javascript" src="todolist/lib/Bootstrap/bootstrap.min.js"></script>
-<script type="text/javascript" src="todolist/lib/jQuery/jquery.ui.min.js"></script>
-<script type="text/javascript" src="todolist/assets/todo.js"></script>
+    <script src="photo/photo.js"></script>
+    <script type="text/javascript" src="todolist/lib/jQuery/jquery.min.js"></script>
+    <script type="text/javascript" src="todolist/lib/Bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="todolist/lib/jQuery/jquery.ui.min.js"></script>
+    <script type="text/javascript" src="todolist/assets/todo.js"></script>
 
-<script type="text/javascript">
-    $( "#datepicker" ).datepicker();
-    $( "#datepicker" ).datepicker("option", "dateFormat", "yy-mm-dd");
+<!-- <script type="text/javascript">
 
     $(".task-container").droppable();
     $(".todo-task").draggable({ revert: "valid", revertDuration:200 });
+    console.log("please");
     todo.init();
-</script>
+</script> -->
+
+
+
 </body>
 
 

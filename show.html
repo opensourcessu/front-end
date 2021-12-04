@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <link rel="stylesheet" href="/final/main.css">
+
+    <script>
+
+        var widgetCount = 0;
+        var widgets = new Array(); //여기에 백에서 정보담아올수있는지..?
+        widgets[widgetCount++] = new Array(7);
+        widgets[0][2] = 3;
+        widgets[0][3] = 4;
+        widgets[0][4] = 3;
+        widgets[0][5] = 4;
+
+    </script>
+
+
+</head>
+
+<body>
+    <div class="inner">
+
+        <div id="setTable"></div>
+        <script type="text/javascript"> //표그림..
+            var tableAddr = new Array(12); //
+            var table = document.createElement("table");
+            table.setAttribute("id", "table");
+            table.setAttribute("border", 1);
+            for (var i = 0; i < 12; i++) {
+                var trString = "tr";
+                tableAddr[i] = new Array(12);
+                tableAddr[i] = document.createElement("tr");
+                tableAddr[i].setAttribute("id", trString += i.toString());
+                for (var j = 0; j < 12; j++) {
+                   
+                    tableAddr[i][j] = document.createElement("td");
+                    tableAddr[i][j].setAttribute("width", 100);
+                    tableAddr[i][j].setAttribute("height", 45);
+
+                    tableAddr[i][j].setAttribute("id", i.toString()+" "+j.toString());
+                    tableAddr[i].appendChild(tableAddr[i][j]);
+                }
+                table.appendChild(tableAddr[i]);
+            }
+
+            document.getElementById("setTable").appendChild(table);
+            ///////////////////////
+            var rect = table.getBoundingClientRect();
+            intLeft = rect.left;
+            intTop = rect.top;
+
+
+
+            var hi = '<section class = \"weather-container\">\
+                                            <div class = \"wrap\"><div class = \"weather-data\"/>\
+                                                <h1 class = \"location\"><class clss = \"fas fa-city\"></class>location : </h1>   \
+                                              <h1 class=\"current-time\">time : </h1></div>\
+                                             <div class=\"weather-temp\"><div class = \"current-temp\">현재 온도</div><div class = \"icon\"></div>\
+                                                 <div class=\"feels-like\">체감 온도 </div>\
+                                                 <div class=\"max-temp\">최고 온도 </div>\
+                                                 <div class=\"min-temp\">최저 온도 </div>\
+                                             </div>\
+                                             </div>\
+                                             <script type = \"text/javascript\" src='openweather.js'>\</script>\</section>'';
+            
+            document.getElementById("1 3").innerHTML = hi;
+
+        </script>
+    </div>
+
+</body>
+
+</html>
