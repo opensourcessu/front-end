@@ -121,7 +121,7 @@
                 
             document.getElementById("4 6").innerHTML = photo;
                 
-            var todo = `
+            var todo_html = `
                     <div id="container">
 
                     <div id="header"> To Do List </div>
@@ -149,7 +149,7 @@
                             <input type="text" placeholder="제목" />
                             <textarea placeholder="설명"></textarea>
                             <input type="date" id="datepicker" placeholder="날짜 (yyyy-mm-dd)" />
-                            <input type="button" class="btn btn-primary" value="추가하기" onclick="moving();todo.add();" />
+                            <input type="button" class="btn btn-primary" value="추가하기" onclick="todo.add();" />
                         </form>
                     
                         <input type="button" class="btn btn-primary" value="지우기" onclick="todo.clear();" />
@@ -164,7 +164,7 @@
                `;
              
 
-            document.getElementById("7 10").innerHTML = todo;
+            document.getElementById("7 10").innerHTML = todo_html;
 
 
             </script>
@@ -180,13 +180,14 @@
     <script type="text/javascript" src="todolist/lib/jQuery/jquery.ui.min.js"></script>
     <script type="text/javascript" src="todolist/assets/todo.js"></script>
 
-<!-- <script type="text/javascript">
+    <script type="text/javascript">
+        $( "#datepicker" ).datepicker();
+        $( "#datepicker" ).datepicker("option", "dateFormat", "yy-mm-dd");
 
-    $(".task-container").droppable();
-    $(".todo-task").draggable({ revert: "valid", revertDuration:200 });
-    console.log("please");
-    todo.init();
-</script> -->
+        $(".task-container").droppable();
+        $(".todo-task").draggable({ revert: "valid", revertDuration:200 });
+        todo.init();
+    </script>
 
 
 
