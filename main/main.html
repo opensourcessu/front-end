@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <link rel="stylesheet" href="main.css">
+
+    <script>
+
+        var widgetCount = 0;
+        var widgets = new Array(); //여기에 백에서 정보담아올수있는지..?
+        widgets[widgetCount++] = new Array(7); //id type positionx positiony sizewidth sizeheight raw
+        widgets[0][0]=6;
+        widgets[0][1]=6; //search
+        widgets[0][2] = 0;
+        widgets[0][3] = 0;
+        widgets[0][4] = 12;
+        widgets[0][5] = 3;
+
+        widgets[widgetCount++] = new Array(7); //id type positionx positiony sizewidth sizeheight raw
+        widgets[1][0]=7;
+        widgets[1][1]=7; //todo
+        widgets[1][2] = 7;
+        widgets[1][3] = 0;
+        widgets[1][4] = 3;
+        widgets[1][5] = 4;
+
+        
+        
+        
+
+    </script>
+
+
+</head>
+
+<body>
+    <div class="inner">
+       
+        <div id="setTable"></div>
+        <script type="text/javascript"> //표그림..
+            var tableAddr = new Array(12); //
+            var table = document.createElement("table");
+            table.setAttribute("id", "table");
+            table.setAttribute("border", 1);
+            for (var i = 0; i < 12; i++) {
+                var trString = "tr";
+                tableAddr[i] = new Array(12);
+                tableAddr[i] = document.createElement("tr");
+                tableAddr[i].setAttribute("id", trString += i.toString());
+                for (var j = 0; j < 12; j++) {
+                   
+                    tableAddr[i][j] = document.createElement("td");
+                    tableAddr[i][j].setAttribute("width", 100);
+                    tableAddr[i][j].setAttribute("height", 45);
+                    tableAddr[i][j].style.padding=0;
+
+                    var div=document.createElement("div");
+                    div.setAttribute("id", i.toString()+" "+j.toString()); //여기다가 위젯 넣으면 되겠다
+                    div.style.maxHeight="45px";
+                    tableAddr[i][j].appendChild(div);
+
+                    tableAddr[i][j].setAttribute("id", "td"+i.toString()+" "+j.toString());
+                    tableAddr[i].appendChild(tableAddr[i][j]);
+                }
+                table.appendChild(tableAddr[i]);
+            }
+
+            document.getElementById("setTable").appendChild(table);
+            ///////////////////////테이블 만들기 끝
+           
+            for(var i=0;i<widgetCount;i++) {
+                var loc=widgets[i][2].toString()+" "+widgets[i][3].toString();
+                var content;
+                if(widgets[i][1]==1) { //검색창
+
+                } else if(widgets[i][1]==2) { //투두
+
+                } else if(widgets[i][1]==3) { //날씨
+                    
+                } else if(widgets[i][1]==4) { //캘린더
+                    
+                } else if(widgets[i][1]==5) { //이메일
+                    
+                } else if(widgets[i][1]==6) { //앨범
+                    content="<img src='/img/tree.png' style='width:200px; height:315px; border-radius:20px'>";
+                } else if(widgets[i][1]==7) { //포스트잇
+                    content="<textarea style='width:200px; height:135px; background-color:pink; border-radius:5px; font-size:15px;'></textarea>";
+                }
+                document.getElementById(loc).innerHTML=content;
+            }
+
+          
+/*
+            var hi2 = "<img src='/img/tree.png' style='width:200px; height:340px; border-radius:20px'>";
+            document.getElementById("5 6").innerHTML = hi2;
+
+            var hi3="<textarea style='width:200px; height:135px; background-color:pink; border-radius:5px; font-size:15px;'></textarea>"
+            document.getElementById("8 0").innerHTML = hi3;
+
+            var hi4 = `<div id="webpage";">
+           <div id="menuholder">
+               <a class="menu" href="#0" onclick="init();"><img src="/img/naverIcon.png" width="30" hight="30"></a>
+            <a class="menu" href="#0" onclick="ggmode();"><img src="/img/googleIcon.png" width="30" hight="30"></a>
+            <a class="menu" href="#0" onclick="gitmode();"><img src="/img/utubeIcon.png" width="30" hight="30"></a>
+            <a class="menu" href="#0" onclick="dmode();"><img src="/img/daumIcon.png" width="25" hight="25"></a>
+
+           </div>
+           <input id="srch" name="searchbox" type="text" autocomplete="off" maxlength="255" onkeydown="return openurl(event);"
+               autofocus />
+            </div>`;
+            document.getElementById("0 0").innerHTML = hi4;
+*/
+            
+
+        </script>
+        
+    </div>
+    <script src="/JS/home_control.js"></script>
+
+
+</body>
+
+</html>
