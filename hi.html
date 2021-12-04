@@ -1,299 +1,198 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sweet Homepage</title>
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
-  <script src='openweather.js'></script>
-  <link rel="stylesheet" href="lib/Bootstrap/bootstrap.min.css" />
-        <link rel="stylesheet" href="lib/jQuery/jquery.ui.min.css" />
-        <link rel="stylesheet" href="assets/todo.css" />
-        <link rel="stylesheet" type="text/css" href="CSS/home.css">
-        <link rel="stylesheet" type="text/css" href="CSS/fontawesome.css">
-        <script src="JS/control.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- <script type="text/javascript" src="todolist/lib/jQuery/jquery.min.js"></script>
+    <script type="text/javascript" src="todolist/lib/Bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="todolist/lib/jQuery/jquery.ui.min.js"></script> -->
+    <script type="text/javascript" src="todolist/assets/todo.js"></script>
 
 
-  <style>
-  body {
-    min-width: 520px;
-    display:flex;
-    justify-content: center;
-   
-  }
-  .column {
-    width: 100px;
-    float: left;
-    padding-bottom: 100px;
-  }
-  .portlet {
-    width: 300px;
-    height: 300;
-  }
-  .portlet_todo{
-    width: 1100px;
-    height: 500Px;
-  }
-  .portlet2 {
-    widows: 30px;
-    border:solid;
-  }
-  .portlet-header {
-    padding: 0.2em 0.3em;
-    margin-bottom: 0.5em;
-    position: relative;
-  }
 
-  .portlet-toggle {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    margin-top: -8px;
-  }
-  .portlet-content {
-    padding: 0.4em;
-  }
-  .portlet-placeholder {
-    border: 1px dotted black;
-    margin: 0 1em 1em 0;
-    height: 50px;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-  <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-  <script>
-  $( function() {
-    $( ".column" ).sortable({
-      connectWith: ".column",
-      handle: ".portlet-header",
-      cancel: ".portlet-toggle",
-      placeholder: "portlet-placeholder ui-corner-all"
-    });
- 
-    $( ".portlet" )
-      .addClass( "ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" )
-      .find( ".portlet-header" )
-        .addClass( "ui-widget-header ui-corner-all" )
-        .prepend( "<span class='ui-icon ui-icon-minusthick portlet-toggle'></span>");
+    <!-- <link rel="stylesheet" href="/final/main.css"> -->
+    <link rel = "stylesheet" href = "weather/openweather.css">
+    <link rel = "stylesheet" href = "photo/photo.css">
 
-         
-    $( ".portlet_todo" )
-      .addClass( "ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" )
-      .find( ".portlet-header" )
-        .addClass( "ui-widget-header ui-corner-all" )
-        .prepend( "<span class='ui-icon ui-icon-minusthick portlet-toggle'></span>");
- 
-    $( ".portlet-toggle" ).on( "click", function() {
-      var icon = $( this );
-      icon.toggleClass( "ui-icon-minusthick ui-icon-plusthick" );
-      icon.closest( ".portlet" ).find( ".portlet-content" ).toggle();
-    });
-  } );
-  </script>
+    <link rel="stylesheet" href="todolist/lib/Bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="todolist/lib/jQuery/jquery.ui.min.css" />
+    <link rel="stylesheet" href="todolist/assets/todo.css" />
+
+
+
+    <script>
+
+        var widgetCount = 0;
+        var widgets = new Array(); //여기에 백에서 정보담아올수있는지..?
+        widgets[widgetCount++] = new Array(7);
+        widgets[0][2] = 3;
+        widgets[0][3] = 4;
+        widgets[0][4] = 3;
+        widgets[0][5] = 4;
+
+    </script>
+
+
 </head>
+
 <body>
- 
-  <div class="column">
- 
-    <!-- <div class="portlet_todo">
-      <div class="portlet-header">Feeds</div>
-      <div class="portlet-content">
-            <div id="webpage">
-                    <div id="menuholder">
-                        <a class="menu" href="#0" onclick="init();"><span class="fa fa-globe"></span> Google</a>
-                        <a class="menu" href="#0" onclick="nmode();"><span class="fa fa-picture-o"></span> Naver</a>
-                        <a class="menu" href="#0" onclick="ytmode();"><span class="fa fa-youtube-play"></span> Youtube</a>
-                        <a class="menu" href="https://www.google.com/calendar"><span class="fa fa-calendar"></span> Calendar</a>
-                        <a class="menu" href="https://mail.google.com"><span class="fa fa-envelope"></span> Gmail</a>
-                        <a class="menu" href="https://myaccount.google.com/"><span class="fa fa-user"></span> Account</a>
-                    </div>
-                    <input id="srch" name="searchbox" type="text" autocomplete="off" maxlength="255" onkeydown="return openurl(event);"
-                        autofocus />
-                </div>    </div>
-   
-    <div class="portlet">
-      <div class="portlet-header">News</div>
-      <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
-    </div>
-   
-  </div> -->
+    <div class="inner">
 
-  <div class="column">
- 
-    <div class="portlet">
-      <div class="portlet-header">Feeds</div>
-      <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
-    </div>
-   
-    <div class="portlet">
-      <div class="portlet-header">News</div>
-      <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
-    </div>
-   
-  </div>
-   
-  <div class="column">
-   
-    <div class="portlet">
-      <div class="portlet-header">Shopping</div>
-      <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
-    </div>
-   
-  </div>
-   
-  <div class="column">
-   
-    <div class="portlet">
-      <div class="portlet-header">Links</div>
-      <div class="portlet-content">
-          
-            <div class = "weather-data">
-                    <h1 class = "location"><class clss = "fas fa-city"></class></h1>
-                    <h1 class="current-time"></h1>
-                </div>
-                <div class="weather-temp">
-                    <div class = "current-temp">현재 온도 </div>
-                    <div class = "icon"></div>
-                    <div class="feels-like">체감 온도 </div>
-                    <div class="max-temp">최고 온도 </div>
-                    <div class="min-temp">최저 온도 </div>
-                </div>    
-    
-    </div>
-    </div>
-   
-    <div class="portlet_todo">
-      <div class="portlet-header">Images</div>
-      <div class="portlet-content">
-            <div id="container">
+        <div id="setTable"></div>
+        <script type="text/javascript"> //표그림..
+            var tableAddr = new Array(12); //
+            var table = document.createElement("table");
+            table.setAttribute("id", "table");
+            table.setAttribute("border", 1);
+            for (var i = 0; i < 12; i++) {
+                var trString = "tr";
+                tableAddr[i] = new Array(12);
+                tableAddr[i] = document.createElement("tr");
+                tableAddr[i].setAttribute("id", trString += i.toString());
+                for (var j = 0; j < 12; j++) {
+                   
+                    tableAddr[i][j] = document.createElement("td");
+                    tableAddr[i][j].setAttribute("width", 100);
+                    tableAddr[i][j].setAttribute("height", 45);
 
-                    <div id="header"> To Do List </div>
-        
-                    <div class="task-list task-container" id="pending">
-                        <h3>할 일</h3>
-                        <!--<div class="todo-task">
-                            <div class="task-header">Sample Header</div>
-                            <div class="task-date">25/06/1992</div>
-                            <div class="task-description">Lorem Ipsum Dolor Sit Amet</div>
-                        </div>-->
-                    </div>
-        
-                    <div class="task-list task-container" id="inProgress">
-                        <h3>진행중</h3>
-                    </div>
-        
-                    <div class="task-list task-container" id="completed">
-                        <h3>완료</h3>
-                    </div>
-        
-                    <div class="task-list">
-                        <h3>할 일 추가하기</h3>
-                        <form id="todo-form">
-                            <input type="text" placeholder="제목" />
-                            <textarea placeholder="설명"></textarea>
-                            <input type="text" id="datepicker" placeholder="날짜 (dd/mm/yyyy)" />
-                            <input type="button" class="btn btn-primary" value="추가하기" onclick="todo.add();" />
-                        </form>
-        
-                        <input type="button" class="btn btn-primary" value="지우기" onclick="todo.clear();" />
-        
-                        <div id="delete-div">
-                            지우려면 여기로 드래그 하세요
+                    tableAddr[i][j].setAttribute("id", i.toString()+" "+j.toString());
+                    tableAddr[i].appendChild(tableAddr[i][j]);
+                }
+                table.appendChild(tableAddr[i]);
+            }
+
+            document.getElementById("setTable").appendChild(table);
+            ///////////////////////
+            var rect = table.getBoundingClientRect();
+            intLeft = rect.left;
+            intTop = rect.top;
+
+
+
+            var weather = `<div class = "wrap">
+        <div class = "weather-data">
+            <h1 class = "location"><class clss = "fas fa-city"></class>location : </h1>
+            <h1 class="current-time">time : </h1>
+        </div>
+        <div class="weather-temp">
+            <div class = "current-temp">현재 온도 </div><br>
+            <div class = "icon"></div>
+            <div class="feels-like">체감 온도 </div><br>
+            <div class="max-temp">최고 온도 </div><br>
+            <div class="min-temp">최저 온도 </div>
+        </div>
+        </div>`;
+            document.getElementById("1 3").innerHTML = weather;
+
+
+            var photo = `<div class="image-upload" id="image-upload">
+
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="button">
+                            <label for="chooseFile">
+                                👉 CLICK HERE! 👈
+                            </label>
+                        </div>
+                        <input type="file" id="chooseFile" name="chooseFile" accept="image/*" onchange="loadFile(this)">
+                    </form>
+
+                    <div class="fileContainer">
+                        <div class="fileInput">
+                            <p>FILE NAME: </p>
+                            <p id="fileName"></p>
+                        </div>
+                        <div class="buttonContainer">
+                            <div class="submitButton" id="submitButton">SUBMIT</div>
                         </div>
                     </div>
-        
-                    <div style="clear:both;"></div>
-                      <script type="text/javascript" src="lib/jQuery/jquery.min.js"></script>
-                    <script type="text/javascript" src="lib/Bootstrap/bootstrap.min.js"></script>
-                    <script type="text/javascript" src="lib/jQuery/jquery.ui.min.js"></script>
-                    <script type="text/javascript" src="assets/todo.js"></script>
-        
-                    <script type="text/javascript">
-                        $( "#datepicker" ).datepicker();
-                        $( "#datepicker" ).datepicker("option", "dateFormat", "dd/mm/yy");
-        
-                        $(".task-container").droppable();
-                        $(".todo-task").draggable({ revert: "valid", revertDuration:200 });
-                        todo.init();
-                    </script>
-        
-                </div>        </div>
-    </div>
-   
-  </div>
-  
-  <div class="column">
- 
-    <div class="portlet">
-      <div class="portlet-header">Feeds</div>
-      <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
-    </div>
-   
-    <div class="portlet">
-      <div class="portlet-header">News</div>
-      <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
-    </div>
-   
-  </div>
+                    </div>
 
-  <div class="column">
- 
-    <div class="portlet">
-      <div class="portlet-header">Feeds</div>
-      <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
-    </div>
-   
-    <div class="portlet">
-      <div class="portlet-header">News</div>
-      <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
-    </div>
-   
-  </div>
+                    <div class="image-show" id="image-show"></div>`;
+                
+            document.getElementById("4 6").innerHTML = photo;
+                
+            var todo = `
+                <div id="container">
+            
+                <div id="header"> To Do List </div>
 
-  
+                <div class="task-list task-container" id="pending">
+                    <h3>할 일</h3>
 
-  <div class="column">
- 
-    <div class="portlet">
-      <div class="portlet-header">Feeds</div>
-      <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
-    </div>
-   
-    <div class="portlet">
-      <div class="portlet-header">News</div>
-      <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
-    </div>
-   
-  </div>
+                </div>
 
-  <div class="column">
- 
-    <div class="portlet">
-      <div class="portlet-header">Feeds</div>
-      <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
-    </div>
-   
-    <div class="portlet">
-      <div class="portlet-header">News</div>
-      <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
-    </div>
-   
-  </div>
+                <div class="task-list task-container" id="inProgress">
+                    <h3>진행중</h3>
+                </div>
 
-  <div class="column">
- 
-    <div class="portlet">
-      <div class="portlet-header">Feeds</div>
-      <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+                <div class="task-list task-container" id="completed">
+                    <h3>완료</h3>
+                </div>
+
+                <div class="task-list">
+                    <h3>할 일 추가하기</h3>
+                    <form id="todo-form">
+                        <input type="text" placeholder="제목" />
+                        <textarea placeholder="설명"></textarea>
+                        <input type="date" id="datepicker" placeholder="날짜 (dd/mm/yyyy)" />
+                        <input type="button" class="btn btn-primary" value="추가하기" onclick="todo.add();" />
+                    </form>
+                
+                    <input type="button" class="btn btn-primary" value="지우기" onclick="todo.clear();" />
+                
+                    <div id="delete-div" ">
+                        지우려면 여기로 드래그 하세요
+                    </div>
+                </div>
+
+                <div style="clear:both;"></div>
+
+               </div>
+               `;
+             
+
+            document.getElementById("7 10").innerHTML = todo;
+
+            // $(".task-container").droppable();
+            //     $(".todo-task").draggable({ revert: "valid", revertDuration:200 });
+            //         todo.init();
+            </script>
+            
+
+
     </div>
-   
-    <div class="portlet">
-      <div class="portlet-header">News</div>
-      <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
-    </div>
-   
-  </div>
- 
+
+    <script src="/weather/openweather.js"></script>
+<script src="photo/photo.js"></script>
+<script type="text/javascript" src="todolist/lib/jQuery/jquery.min.js"></script>
+<script type="text/javascript" src="todolist/lib/Bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="todolist/lib/jQuery/jquery.ui.min.js"></script>
+<script type="text/javascript" src="todolist/assets/todo.js"></script>
+
+<script type="text/javascript">
+    $( "#datepicker" ).datepicker();
+    $( "#datepicker" ).datepicker("option", "dateFormat", "yy-mm-dd");
+
+    $(".task-container").droppable();
+    $(".todo-task").draggable({ revert: "valid", revertDuration:200 });
+    todo.init();
+</script>
 </body>
+
+
+
+<!-- <script type="text/javascript" src="todolist/assets/todo.js"></script> -->
+
+
+
 </html>
