@@ -8,7 +8,7 @@ class Mode {
 
     setup() {
         srch.style.border = this.border;
-        document.title = this.placeholder;
+        srch.setAttribute("placeholder", this.placeholder);
         menu = this.border;
     }
 }
@@ -52,7 +52,7 @@ let search_engine = {
     },
     
     dmode() {
-        this.modeObj = new Mode('d', 'daum', '3px #87A1E6 solid', durl);
+        this.modeObj = new Mode('d', 'Daum', '3px #87A1E6 solid', durl);
         this.modeObj.setup();
     },
     

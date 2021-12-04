@@ -25,7 +25,7 @@ localStorage.setItem("access_token", "");
         var access_token = localStorage.getItem("access_token");
     
         return $.ajax({
-            url: request_url + `/todo`,
+            url: request_url + `/tasks`,
             method: "GET",
             headers: { Authorization: `jwt ${access_token}` },
             dataType: "json",
@@ -43,7 +43,7 @@ localStorage.setItem("access_token", "");
         };
     
         return $.ajax({
-            url: request_url + "/todo",
+            url: request_url + "/tasks",
             method: "POST",
             headers: { Authorization: `jwt ${access_token}` },
             contentType: "application/json; charset=UTF-8",
@@ -56,7 +56,7 @@ localStorage.setItem("access_token", "");
         var access_token = localStorage.getItem("access_token");
 
         return $.ajax({
-            url: request_url + `/todo/${id}`,
+            url: request_url + `/tasks/${id}`,
             method: "PATCH",
             headers: { Authorization: `jwt ${access_token}` },
             contentType: "application/json; charset=UTF-8",
@@ -69,7 +69,7 @@ localStorage.setItem("access_token", "");
         var access_token = localStorage.getItem("access_token");
     
         return $.ajax({
-            url: request_url + `/todo/${id}`,
+            url: request_url + `/tasks/${id}`,
             method: "DELETE",
             headers: { Authorization: `jwt ${access_token}` },
             dataType: "json",
