@@ -37,14 +37,14 @@
 		</div>
 	    <div id="webpage">
 	        <div id="menuholder">
-	            <a class="menu" href="#0" onclick="init();"><img src="Images/네이버.png" width="30" hight="30"></a>
-				<a class="menu" href="#0" onclick="ggmode();"><img src="Images/구글.png" width="30" hight="30"></a>
-				<a class="menu" href="#0" onclick="fcmode();"><img src="Images/페북.png" width="30" hight="30"></a>
-				<a class="menu" href="#0" onclick="gitmode();"><img src="Images/깃.png" width="30" hight="30"></a>
-				<a class="menu" href="#0" onclick="dmode();"><img src="Images/다음.png" width="25" hight="25"></a>
+	            <a class="menu" href="#0" onclick="search_engine.nvmode();"><img src="Images/네이버.png" width="30" hight="30"></a>
+				<a class="menu" href="#0" onclick="search_engine.ggmode();"><img src="Images/구글.png" width="30" hight="30"></a>
+				<a class="menu" href="#0" onclick="search_engine.fcmode();"><img src="Images/페북.png" width="30" hight="30"></a>
+				<a class="menu" href="#0" onclick="search_engine.gitmode();"><img src="Images/깃.png" width="30" hight="30"></a>
+				<a class="menu" href="#0" onclick="search_engine.dmode();"><img src="Images/다음.png" width="25" hight="25"></a>
 
 	        </div>
-	        <input id="srch" name="searchbox" type="text" autocomplete="off" maxlength="255" onkeydown="return openurl(event);"
+	        <input id="srch" name="searchbox" type="text" autocomplete="off" maxlength="255" onkeydown="return search_engine.openurl(event);"
 	            autofocus />
 	    </div>
 
