@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sweet Homepage</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src='openweather.js'></script>
+  <link rel="stylesheet" href="lib/Bootstrap/bootstrap.min.css" />
+        <link rel="stylesheet" href="lib/jQuery/jquery.ui.min.css" />
+        <link rel="stylesheet" href="assets/todo.css" />
+        <link rel="stylesheet" type="text/css" href="CSS/home.css">
+        <link rel="stylesheet" type="text/css" href="CSS/fontawesome.css">
+        <script src="JS/control.js"></script>
+
+
+  <style>
+  body {
+    min-width: 520px;
+    display:flex;
+    justify-content: center;
+   
+  }
+  .column {
+    width: 100px;
+    float: left;
+    padding-bottom: 100px;
+  }
+  .portlet {
+    width: 300px;
+    height: 300;
+  }
+  .portlet_todo{
+    width: 1100px;
+    height: 500Px;
+  }
+  .portlet2 {
+    widows: 30px;
+    border:solid;
+  }
+  .portlet-header {
+    padding: 0.2em 0.3em;
+    margin-bottom: 0.5em;
+    position: relative;
+  }
+
+  .portlet-toggle {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    margin-top: -8px;
+  }
+  .portlet-content {
+    padding: 0.4em;
+  }
+  .portlet-placeholder {
+    border: 1px dotted black;
+    margin: 0 1em 1em 0;
+    height: 50px;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( ".column" ).sortable({
+      connectWith: ".column",
+      handle: ".portlet-header",
+      cancel: ".portlet-toggle",
+      placeholder: "portlet-placeholder ui-corner-all"
+    });
+ 
+    $( ".portlet" )
+      .addClass( "ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" )
+      .find( ".portlet-header" )
+        .addClass( "ui-widget-header ui-corner-all" )
+        .prepend( "<span class='ui-icon ui-icon-minusthick portlet-toggle'></span>");
+
+         
+    $( ".portlet_todo" )
+      .addClass( "ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" )
+      .find( ".portlet-header" )
+        .addClass( "ui-widget-header ui-corner-all" )
+        .prepend( "<span class='ui-icon ui-icon-minusthick portlet-toggle'></span>");
+ 
+    $( ".portlet-toggle" ).on( "click", function() {
+      var icon = $( this );
+      icon.toggleClass( "ui-icon-minusthick ui-icon-plusthick" );
+      icon.closest( ".portlet" ).find( ".portlet-content" ).toggle();
+    });
+  } );
+  </script>
+</head>
+<body>
+ 
+  <div class="column">
+ 
+    <!-- <div class="portlet_todo">
+      <div class="portlet-header">Feeds</div>
+      <div class="portlet-content">
+            <div id="webpage">
+                    <div id="menuholder">
+                        <a class="menu" href="#0" onclick="init();"><span class="fa fa-globe"></span> Google</a>
+                        <a class="menu" href="#0" onclick="nmode();"><span class="fa fa-picture-o"></span> Naver</a>
+                        <a class="menu" href="#0" onclick="ytmode();"><span class="fa fa-youtube-play"></span> Youtube</a>
+                        <a class="menu" href="https://www.google.com/calendar"><span class="fa fa-calendar"></span> Calendar</a>
+                        <a class="menu" href="https://mail.google.com"><span class="fa fa-envelope"></span> Gmail</a>
+                        <a class="menu" href="https://myaccount.google.com/"><span class="fa fa-user"></span> Account</a>
+                    </div>
+                    <input id="srch" name="searchbox" type="text" autocomplete="off" maxlength="255" onkeydown="return openurl(event);"
+                        autofocus />
+                </div>    </div>
+   
+    <div class="portlet">
+      <div class="portlet-header">News</div>
+      <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+    </div>
+   
+  </div> -->
+
+  <div class="column">
+ 
+    <div class="portlet">
+      <div class="portlet-header">Feeds</div>
+      <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+    </div>
+   
+    <div class="portlet">
+      <div class="portlet-header">News</div>
+      <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+    </div>
+   
+  </div>
+   
+  <div class="column">
+   
+    <div class="portlet">
+      <div class="portlet-header">Shopping</div>
+      <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+    </div>
+   
+  </div>
+   
+  <div class="column">
+   
+    <div class="portlet">
+      <div class="portlet-header">Links</div>
+      <div class="portlet-content">
+          
+            <div class = "weather-data">
+                    <h1 class = "location"><class clss = "fas fa-city"></class></h1>
+                    <h1 class="current-time"></h1>
+                </div>
+                <div class="weather-temp">
+                    <div class = "current-temp">현재 온도 </div>
+                    <div class = "icon"></div>
+                    <div class="feels-like">체감 온도 </div>
+                    <div class="max-temp">최고 온도 </div>
+                    <div class="min-temp">최저 온도 </div>
+                </div>    
+    
+    </div>
+    </div>
+   
+    <div class="portlet_todo">
+      <div class="portlet-header">Images</div>
+      <div class="portlet-content">
+            <div id="container">
+
+                    <div id="header"> To Do List </div>
+        
+                    <div class="task-list task-container" id="pending">
+                        <h3>할 일</h3>
+                        <!--<div class="todo-task">
+                            <div class="task-header">Sample Header</div>
+                            <div class="task-date">25/06/1992</div>
+                            <div class="task-description">Lorem Ipsum Dolor Sit Amet</div>
+                        </div>-->
+                    </div>
+        
+                    <div class="task-list task-container" id="inProgress">
+                        <h3>진행중</h3>
+                    </div>
+        
+                    <div class="task-list task-container" id="completed">
+                        <h3>완료</h3>
+                    </div>
+        
+                    <div class="task-list">
+                        <h3>할 일 추가하기</h3>
+                        <form id="todo-form">
+                            <input type="text" placeholder="제목" />
+                            <textarea placeholder="설명"></textarea>
+                            <input type="text" id="datepicker" placeholder="날짜 (dd/mm/yyyy)" />
+                            <input type="button" class="btn btn-primary" value="추가하기" onclick="todo.add();" />
+                        </form>
+        
+                        <input type="button" class="btn btn-primary" value="지우기" onclick="todo.clear();" />
+        
+                        <div id="delete-div">
+                            지우려면 여기로 드래그 하세요
+                        </div>
+                    </div>
+        
+                    <div style="clear:both;"></div>
+                      <script type="text/javascript" src="lib/jQuery/jquery.min.js"></script>
+                    <script type="text/javascript" src="lib/Bootstrap/bootstrap.min.js"></script>
+                    <script type="text/javascript" src="lib/jQuery/jquery.ui.min.js"></script>
+                    <script type="text/javascript" src="assets/todo.js"></script>
+        
+                    <script type="text/javascript">
+                        $( "#datepicker" ).datepicker();
+                        $( "#datepicker" ).datepicker("option", "dateFormat", "dd/mm/yy");
+        
+                        $(".task-container").droppable();
+                        $(".todo-task").draggable({ revert: "valid", revertDuration:200 });
+                        todo.init();
+                    </script>
+        
+                </div>        </div>
+    </div>
+   
+  </div>
+  
+  <div class="column">
+ 
+    <div class="portlet">
+      <div class="portlet-header">Feeds</div>
+      <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+    </div>
+   
+    <div class="portlet">
+      <div class="portlet-header">News</div>
+      <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+    </div>
+   
+  </div>
+
+  <div class="column">
+ 
+    <div class="portlet">
+      <div class="portlet-header">Feeds</div>
+      <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+    </div>
+   
+    <div class="portlet">
+      <div class="portlet-header">News</div>
+      <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+    </div>
+   
+  </div>
+
+  
+
+  <div class="column">
+ 
+    <div class="portlet">
+      <div class="portlet-header">Feeds</div>
+      <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+    </div>
+   
+    <div class="portlet">
+      <div class="portlet-header">News</div>
+      <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+    </div>
+   
+  </div>
+
+  <div class="column">
+ 
+    <div class="portlet">
+      <div class="portlet-header">Feeds</div>
+      <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+    </div>
+   
+    <div class="portlet">
+      <div class="portlet-header">News</div>
+      <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+    </div>
+   
+  </div>
+
+  <div class="column">
+ 
+    <div class="portlet">
+      <div class="portlet-header">Feeds</div>
+      <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+    </div>
+   
+    <div class="portlet">
+      <div class="portlet-header">News</div>
+      <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+    </div>
+   
+  </div>
+ 
+</body>
+</html>

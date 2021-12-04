@@ -11,70 +11,11 @@ Otherwise, comments are provided at appropriate places
 */
 
 var todo = todo || {},
-    todoData = todoData || {}; // JSON.parse(localStorage.getItem("todoData"));
+    data = JSON.parse(localStorage.getItem("todoData"));
 
-// data = data || {};
+data = data || {};
 
-localStorage.setItem("access_token", "");
-
-
-(function (todo, data, $) {
-    const request_url = "http://localhost:8000"
-    
-    function req_get_task_list() {
-        var access_token = localStorage.getItem("access_token");
-    
-        return $.ajax({
-            url: request_url + `/todo`,
-            method: "GET",
-            headers: { Authorization: `jwt ${access_token}` },
-            dataType: "json",
-        });
-    }
-
-    function req_create_task(subj, content, date) {
-        var access_token = localStorage.getItem("access_token");
-        var deadline = `${date} 23:59:59`;
-
-        req_body = {
-            subject: subj,
-            content: content,
-            deadline: deadline,
-        };
-    
-        return $.ajax({
-            url: request_url + "/todo",
-            method: "POST",
-            headers: { Authorization: `jwt ${access_token}` },
-            contentType: "application/json; charset=UTF-8",
-            data: JSON.stringify(req_body),
-            dataType: "json",
-        });
-    }
-
-    function req_change_task_status(id, status) {
-        var access_token = localStorage.getItem("access_token");
-
-        return $.ajax({
-            url: request_url + `/todo/${id}`,
-            method: "PATCH",
-            headers: { Authorization: `jwt ${access_token}` },
-            contentType: "application/json; charset=UTF-8",
-            data: JSON.stringify({ status }),
-            dataType: "json",
-        });
-    }
-
-    function req_delete_task(id) {
-        var access_token = localStorage.getItem("access_token");
-    
-        return $.ajax({
-            url: request_url + `/todo/${id}`,
-            method: "DELETE",
-            headers: { Authorization: `jwt ${access_token}` },
-            dataType: "json",
-        });
-    }
+(function(todo, data, $) {
 
     var defaults = {
             todoTask: "todo-task",
@@ -86,9 +27,9 @@ localStorage.setItem("access_token", "");
             dataAttribute: "data",
             deleteDiv: "delete-div"
         }, codes = {
-            "0" : "#pending",
-            "1" : "#inProgress",
-            "2" : "#completed"
+            "1" : "#pending",
+            "2" : "#inProgress",
+            "3" : "#completed"
         };
 
     todo.init = function (options) {
@@ -96,35 +37,23 @@ localStorage.setItem("access_token", "");
         options = options || {};
         options = $.extend({}, defaults, options);
 
-        req_get_task_list().done(function (body) {
-            body.tickets.map(val => {
-                data[val.ticket_id] = {
-                    id: val.ticket_id,
-                    code: val.status.toString(),
-                    title: val.subject,
-                    date: val.deadline.split("T")[0],
-                    description: val.content
-                };
-            });
-
-            $.each(data, function (index, params) {
-                generateElement(params);
-            });
+        $.each(data, function (index, params) {
+            generateElement(params);
         });
 
         /*generateElement({
             id: "123",
-            code: "0",
+            code: "1",
             title: "asd",
-            date: "2013-12-22",
+            date: "22/12/2013",
             description: "Blah Blah"
         });*/
 
         /*removeElement({
             id: "123",
-            code: "0",
+            code: "1",
             title: "asd",
-            date: "2013-12-22",
+            date: "22/12/2013",
             description: "Blah Blah"
         });*/
 
@@ -137,21 +66,18 @@ localStorage.setItem("access_token", "");
                             id = css_id.replace(options.taskId, ""),
                             object = data[id];
 
-                            req_change_task_status(id, parseInt(index)).done(val => {
-                                // Removing old element
-                                removeElement(object);
-    
-                                // Changing object code
-                                object.code = index;
-    
-                                // Generating new element
-                                generateElement(object);
-    
-                                // Updating Local Storage
-                                data[id] = object;
-                                
-                                // localStorage.setItem("todoData", JSON.stringify(data));
-                            });
+                            // Removing old element
+                            removeElement(object);
+
+                            // Changing object code
+                            object.code = index;
+
+                            // Generating new element
+                            generateElement(object);
+
+                            // Updating Local Storage
+                            data[id] = object;
+                            localStorage.setItem("todoData", JSON.stringify(data));
 
                             // Hiding Delete Area
                             $("#" + defaults.deleteDiv).hide();
@@ -167,14 +93,12 @@ localStorage.setItem("access_token", "");
                     id = css_id.replace(options.taskId, ""),
                     object = data[id];
 
-                req_delete_task(id).done(val => {
-                    // Removing old element
-                    removeElement(object);
-    
-                    // Updating local storage
-                    delete data[id];
-                    // localStorage.setItem("todoData", JSON.stringify(data));
-                });
+                // Removing old element
+                removeElement(object);
+
+                // Updating local storage
+                delete data[id];
+                localStorage.setItem("todoData", JSON.stringify(data));
 
                 // Hiding Delete Area
                 $("#" + defaults.deleteDiv).hide();
@@ -249,28 +173,27 @@ localStorage.setItem("access_token", "");
             return;
         }
 
-        // localStorage에 저장하는 것 대신 back-end 서버에 저장
-        req_create_task(title, description, date).done(val => {
-            tempData = {
-                id : val.ticket_id,
-                code: val.status,
-                title: val.subject,
-                date: val.deadline.split("T")[0],
-                description: val.content
-            };
-    
-            // Saving element in local storage
-            data[val.ticket_id] = tempData;
-            // localStorage.setItem("todoData", JSON.stringify(data));
-    
-            // Generate Todo Element
-            generateElement(tempData);
-        }).always(() => {
-            // Reset Form
-            inputs[0].value = "";
-            inputs[1].value = "";
-            inputs[2].value = "";
-        });
+        id = new Date().getTime();
+
+        tempData = {
+            id : id,
+            code: "1",
+            title: title,
+            date: date,
+            description: description
+        };
+
+        // Saving element in local storage
+        data[id] = tempData;
+        localStorage.setItem("todoData", JSON.stringify(data));
+
+        // Generate Todo Element
+        generateElement(tempData);
+
+        // Reset Form
+        inputs[0].value = "";
+        inputs[1].value = "";
+        inputs[2].value = "";
     };
 
     var generateDialog = function (message) {
@@ -304,13 +227,9 @@ localStorage.setItem("access_token", "");
     };
 
     todo.clear = function () {
-        for (const key of Object.keys(data)) {
-            req_delete_task(key);
-        }
-
         data = {};
-        // localStorage.setItem("todoData", JSON.stringify(data));
+        localStorage.setItem("todoData", JSON.stringify(data));
         $("." + defaults.todoTask).remove();
     };
 
-})(todo, todoData, jQuery);
+})(todo, data, jQuery);
