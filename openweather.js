@@ -59,7 +59,7 @@ function loadWeather(data){
     maxTemp.append(data.main.temp_max);
     minTemp.append(data.main.temp_min);
 
-    icon.innerHTML = "<img src = http://openweathermap.org/img/wn/"+weatherIcon+".png>";
+    // icon.innerHTML = '<img src = http://openweathermap.org/img/wn/${weatherIcon}.png>';
 
     currentTime.append(month+'월'+ day + '일 '+hours +':' +minutes);
 

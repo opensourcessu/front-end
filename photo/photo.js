@@ -22,10 +22,12 @@ function loadFile(input) {
 
     newImage.src = URL.createObjectURL(file);   
 
-    newImage.style.width = "70%";
-    newImage.style.height = "70%";
+    // newImage.style.width = "100%";
+    // newImage.style.height = "100%";
+    newImage.style.objectFit = "cover";
+
     newImage.style.visibility = "hidden";   //버튼을 누르기 전까지는 이미지 숨기기
-    newImage.style.objectFit = "contain";
+    // newImage.style.objectFit = "contain";
 
     var container = document.getElementById('image-show');
     container.appendChild(newImage);
