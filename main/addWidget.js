@@ -33,17 +33,18 @@ let add_widget = {};
   
     ////////////////////
     var widgetSize=new Array(); //위젯들 크기 넣어놓기..
-    widgetSize[1]=new Array(3,4);
-    widgetSize[2]=new Array(2,3);
-    widgetSize[3]=new Array(4,5);
-    widgetSize[4]=new Array(1,1);
-    widgetSize[5]=new Array(2,2);
-    widgetSize[6]=new Array(2,1);
-    widgetSize[7]=new Array(1,1);
+    widgetSize[1]=new Array(12,3);
+    widgetSize[2]=new Array(8,6);
+    widgetSize[3]=new Array(3,4);
+    widgetSize[4]=new Array(4,3);
+    widgetSize[5]=new Array(4,4);
+    widgetSize[6]=new Array(2,3);
+    widgetSize[7]=new Array(2,3);
 
     ///////////////////////////
     var widgetCount=0;
     var widgets = new Array(); //여기에 백에서 정보담아올수있는지..?
+    /*
     widgets[widgetCount++] = new Array(7); //id type positionx positiony sizewidth sizeheight raw
     widgets[0][0]=6;
     widgets[0][1]=6; //image
@@ -58,7 +59,7 @@ let add_widget = {};
     widgets[1][2] = 7;
     widgets[1][3] = 0;
     widgets[1][4] = 2;
-    widgets[1][5] = 3;
+    widgets[1][5] = 3;*/
     ///////////////////////////////
 
     var full=new Array(12); //자리가 찼는지 확인하는 배열
@@ -70,14 +71,14 @@ let add_widget = {};
         for(var j=0;j<12;j++) {
             full[i][j]=0;
         }
-    }
+    }/*
     for(var k=0;k<widgets.length;k++) {
         for(var i=widgets[k][2];i<widgets[k][2]+widgets[k][5];i++) {
             for(var j=widgets[k][3];j<widgets[k][4];j++) {
                 full[i][j]=1;
             }
         }
-    }
+    }*/
   
   
     ////////////////////////////////////////////////
@@ -208,31 +209,38 @@ let add_widget = {};
                             for(var i=whereAmIx(xPos);i<whereAmIx(xPos)+widgetSize[$(this).attr("id")][0];i++) {
                                 for(var j=whereAmIy(yPos);j<whereAmIy(yPos)+widgetSize[$(this).attr("id")][1];j++) {
                                     full[j][i]=1;
-                                    document.getElementById("td"+j+" "+i).style.backgroundColor="red";
+                                    //document.getElementById("td"+j+" "+i).style.backgroundColor="red";
+                                    switch($(this).attr("id")) {
+                                        case "1": 
+                                            widgets[widgetCount-1][1]=1; //검색창
+                                            widgets[widgetCount-1][4]=12; //위젯 가로길이
+                                            widgets[widgetCount-1][5]=3;   //위젯 세로길이
+                                            //hi=widget_html.search;
+                                            document.getElementById("td"+j+" "+i).style.backgroundColor="#FFADAD";
+                                        break;
+                                        case "2": 
+                                            document.getElementById("td"+j+" "+i).style.backgroundColor="#FFD6A5";
+                                        break; //투두
+                                        case "3":
+                                            document.getElementById("td"+j+" "+i).style.backgroundColor="#FDFFB6"; break; //날씨
+                                        case "4":
+                                            document.getElementById("td"+j+" "+i).style.backgroundColor="#CAFFBF"; break; //캘린더
+                                        case "5":
+                                            document.getElementById("td"+j+" "+i).style.backgroundColor="#A0C4FF"; break; //이메일
+                                        case "6":
+                                            document.getElementById("td"+j+" "+i).style.backgroundColor="#BDB2FF"; //앨범
+                                        break;
+                                        case "7":
+                                            document.getElementById("td"+j+" "+i).style.backgroundColor="#FFC6FF"; break; //포스트잇
+                                    }
                                 }
                             }
                             widgets[widgetCount++] = new Array(7);
                             widgets[widgetCount-1][2]=whereAmIx(xPos); //추가한 위젯 위치 저장
                             widgets[widgetCount-1][3]=whereAmIy(yPos);
-                            var hi="<img src='/img/googleIcon.png'>";
-                            switch($(this).attr("id")) {
-                                case "1": 
-                                    widgets[widgetCount-1][1]=1; //검색창
-                                    widgets[widgetCount-1][4]=12; //위젯 가로길이
-                                    widgets[widgetCount-1][5]=3;   //위젯 세로길이
-                                    hi=widget_html.search;
-                                break;
-                                case "2": break; //투두
-                                case "3": break; //날씨
-                                case "4": break; //캘린더
-                                case "5": break; //이메일
-                                case "6": //앨범
-                                    hi=widget_html.album;
-                                break;
-                                case "7": break; //포스트잇
-                            }
                             
-                            document.getElementById(whereAmI(xPos,yPos)).innerHTML=hi;
+                            
+                            //document.getElementById(whereAmI(xPos,yPos)).innerHTML=hi;
                             $(this).animate({ top : 0, left : 0 }, 1000, 'easeOutElastic' );
                             if ($(this).attr("id") === "1") {
                                 search_engine.init();
