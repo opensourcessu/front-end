@@ -14,6 +14,8 @@
 
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
+
+
     <style>
       iframe {
         width: 100%;
@@ -52,7 +54,19 @@
         font-size: 10px;
       }
 
-    </style>
+  @import url('https://fonts.googleapis.com/css2?family=Poor+Story&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Stylish&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+
+  body {
+      
+  }
+</style>
+<script>
+
+</script>
+
 
 
 
@@ -187,6 +201,7 @@
     </div>
 
     <script type="text/javascript">
+      
       var scopes = 'https://www.googleapis.com/auth/gmail.readonly';
 
       function handleClientLoad() {
@@ -494,6 +509,18 @@
         widgets[i]=new Array(7); //id type positionx positiony sizewidth sizeheight raw
         
     }
+  
+      
+  var colorInfo = "rgb(196, 22, 222)"; //배경색깔 정보 넣기
+  var fontInfo = `"Nanum Pen Script", cursive`; //폰트 정보 넣기
+  window.onload = function () {
+    document.write("hi");
+    document.body.style.backgroundColor = colorInfo;
+    document.body.style.fontFamily = fontInfo;
+  }
+
+   
+    
     widgets[1][1]=5;
     widgets[1][2]=300;
     widgets[1][3]=400;
@@ -556,6 +583,7 @@
             document.getElementById("postit").style.display="inline";
         }
     }
+    
 </script>
 
 </body>

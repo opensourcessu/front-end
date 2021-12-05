@@ -7,11 +7,19 @@ function changeBackgroundColor() {
     document.querySelector("body").style.backgroundColor=color;
 }
 
-function changeBackgroundImage() { //만드는중...
-    var image=prompt('이미지')
+function changeFont() { //글자 예시를 몇개 주고 선택하게 해야하나?
+    window.open("/main/selectFont.html", "selectFontPopup", "width=460, height=300, left=100, top=50");
 }
 
-function changeFont() { //글자 예시를 몇개 주고 선택하게 해야하나?
-    var font=prompt('fontFamily 값을 입력해주세요');
-    document.querySelector("body").style.fontFamily=font;
+function selectedFont(font) {
+    if(font=='G') {
+        document.body.style.fontFamily="'Gowun Dodum', sans-serif";
+    } else if(font=='N') {
+        document.body.style.fontFamily="'Nanum Pen Script', cursive";
+    } else if(font=='P') {
+        document.body.style.fontFamily="'Poor Story', cursive";
+    } else if(font=='S') {
+        document.body.style.fontFamily="'Stylish', sans-serif";
+    }
+    
 }
