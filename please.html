@@ -59,8 +59,7 @@
 
 </head>
 <body>
-    
-    <div class = "weather" id = "weather" style="display: none;">
+  <div class = "weather" id = "weather" style="display: none;">
      <div class = "wrap">
         <div class = "weather-data">
             <h1 class = "location"><class clss = "fas fa-city"></class></h1>
@@ -74,15 +73,15 @@
             <div class="min-temp">최저 온도 </div>
         </div>
         </div>
-    </div>
+  </div>
 
 
-    <div class = "photo" id = "photo" style="display: none;" >
-        <div class="image-upload" id="image-upload">
+  <div class = "photo" id = "photo" style="display: none;" >
+    <div class="image-upload" id="image-upload">
 
-                <div class="image-show" id="image-show"></div>
+         <div class="image-show" id="image-show"></div>
 
-            <form method="post" enctype="multipart/form-data">
+          <form method="post" enctype="multipart/form-data">
                 <div class="button">
                     <label for="chooseFile">
                         <br>
@@ -90,22 +89,22 @@
                     </label>
                 </div>
                 <input type="file" id="chooseFile" name="chooseFile" accept="image/*" onchange="loadFile(this)">
-            </form>
+          </form>
 
-            <div class="fileContainer">
-                <div class="fileInput">
+          <div class="fileContainer">
+              <div class="fileInput">
                     <p>FILE : </p>
                     <p id="fileName"></p>
-                </div>
-                <div class="buttonContainer">
+              </div>
+              <div class="buttonContainer">
                     <div class="submitButton" id="submitButton">up</div>
-                </div>
-            </div>
-            </div>
-
+              </div>
+          </div>
     </div>
 
-    <div class = "todolist" id = "todolist" style="display: none;">
+  </div>
+
+  <div class = "todolist" id = "todolist" style="display: none;">
 
             <div id="container">
                     <div id="header"> To Do List </div>
@@ -160,10 +159,10 @@
             <div id="webpage">
                     <div id="menuholder">
                         <a class="menu" href="#0" onclick="init();"><img src="Images/네이버.png" width="30" hight="30"></a>
-                     <a class="menu" href="#0" onclick="ggmode();"><img src="Images/구글.png" width="30" hight="30"></a>
-                     <a class="menu" href="#0" onclick="fcmode();"><img src="Images/페북.png" width="30" hight="30"></a>
-                     <a class="menu" href="#0" onclick="gitmode();"><img src="Images/깃.png" width="30" hight="30"></a>
-                     <a class="menu" href="#0" onclick="dmode();"><img src="Images/다음.png" width="25" hight="25"></a>
+                        <a class="menu" href="#0" onclick="ggmode();"><img src="Images/구글.png" width="30" hight="30"></a>
+                        <a class="menu" href="#0" onclick="fcmode();"><img src="Images/페북.png" width="30" hight="30"></a>
+                        <a class="menu" href="#0" onclick="gitmode();"><img src="Images/깃.png" width="30" hight="30"></a>
+                        <a class="menu" href="#0" onclick="dmode();"><img src="Images/다음.png" width="25" hight="25"></a>
          
                     </div>
                     <input id="srch" name="searchbox" type="text" autocomplete="off" maxlength="255" onkeydown="return openurl(event);"
@@ -174,7 +173,6 @@
     </div>
 
     <div class = "mail" id = "mail" style="display: none;">
-            <div id="gcontainer">
                     <button id="authorize-button" class="btn btn-primary hidden">Authorize</button>
               
                     <table class="table table-striped table-inbox hidden">
@@ -186,21 +184,167 @@
                       </thead>
                       <tbody></tbody>
                     </table>
-            </div>
     </div>
-                  <div class = "calendar" id = "calendar" style="display: none;">
 
-                  <div id = "calcontainer">
+    <script type="text/javascript">
+      var scopes = 'https://www.googleapis.com/auth/gmail.readonly';
+
+      function handleClientLoad() {
+        gapi.client.setApiKey(API_KEY);
+        window.setTimeout(checkAuth, 1);
+      }
+
+      function checkAuth() {
+        gapi.auth.authorize({
+          client_id: CLIENT_ID,
+          scope: scopes,
+          immediate: true
+        }, handleAuthResult);
+      }
+
+      function handleAuthClick() {
+        gapi.auth.authorize({
+          client_id: CLIENT_ID,
+          scope: scopes,
+          immediate: false
+        }, handleAuthResult);
+        return false;
+      }
+
+      function handleAuthResult(authResult) {
+        if(authResult && !authResult.error) {
+          loadGmailApi();
+          $('#authorize-button').remove();
+          $('.table-inbox').removeClass("hidden");
+        } else {
+          $('#authorize-button').removeClass("hidden");
+          $(document).on('click','#authorize-button', function(){
+            handleAuthClick();
+          });
+        }
+      }
+
+      function loadGmailApi() {
+        gapi.client.load('gmail', 'v1', displayInbox);
+      }
+
+      function displayInbox() {
+        var request = gapi.client.gmail.users.messages.list({
+          'userId': 'me',
+          'labelIds': 'INBOX',
+          'maxResults': 4
+        });
+
+        request.execute(function(response) {
+          $.each(response.messages, function() {
+            var messageRequest = gapi.client.gmail.users.messages.get({
+              'userId': 'me',
+              'id': this.id
+            });
+
+            messageRequest.execute(appendMessageRow);
+          });
+        });
+      }
+
+      function appendMessageRow(message) {
+        $('.table-inbox tbody').append(
+          '<tr>\
+            <td>'+getHeader(message.payload.headers, 'From')+'</td>\
+            <td>\
+              <a href="#message-modal-' + message.id +
+                '" data-toggle="modal" id="message-link-' + message.id+'">' +
+                getHeader(message.payload.headers, 'Subject') +
+              '</a>\
+            </td>\
+          </tr>'
+        );
+
+        $('body').append(
+          '<div class="modal fade" id="message-modal-' + message.id +
+              '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">\
+            <div class="modal-dialog modal-lg">\
+              <div class="modal-content">\
+                <div class="modal-header">\
+                  <button type="button"\
+                          class="close"\
+                          data-dismiss="modal"\
+                          aria-label="Close">\
+                    <span aria-hidden="true">&times;</span></button>\
+                  <h4 class="modal-title" id="myModalLabel">' +
+                    getHeader(message.payload.headers, 'Subject') +
+                  '</h4>\
+                </div>\
+                <div class="modal-body">\
+                  <iframe id="message-iframe-'+message.id+'" srcdoc="<p>Loading...</p>">\
+                  </iframe>\
+                </div>\
+              </div>\
+            </div>\
+          </div>'
+        );
+
+        $('#message-link-'+message.id).on('click', function(){
+          var ifrm = $('#message-iframe-'+message.id)[0].contentWindow.document;
+          $('body', ifrm).html(getBody(message.payload));
+        });
+      }
+
+      function getHeader(headers, index) {
+        var header = '';
+
+        $.each(headers, function(){
+          if(this.name === index){
+            header = this.value;
+          }
+        });
+        return header;
+      }
+
+      function getBody(message) {
+        var encodedBody = '';
+        if(typeof message.parts === 'undefined')
+        {
+          encodedBody = message.body.data;
+        }
+        else
+        {
+          encodedBody = getHTMLPart(message.parts);
+        }
+        encodedBody = encodedBody.replace(/-/g, '+').replace(/_/g, '/').replace(/\s/g, '');
+        return decodeURIComponent(escape(window.atob(encodedBody)));
+      }
+
+      function getHTMLPart(arr) {
+        for(var x = 0; x <= arr.length; x++)
+        {
+          if(typeof arr[x].parts === 'undefined')
+          {
+            if(arr[x].mimeType === 'text/html')
+            {
+              return arr[x].body.data;
+            }
+          }
+          else
+          {
+            return getHTMLPart(arr[x].parts);
+          }
+        }
+        return '';
+      }
+    </script>
+
+
+                  <div class = "calendar" id = "calendar" style="display: none;">
                     <!--Add buttons to initiate auth sequence and sign out-->
                     <button id="authorize_button" style="display: none;">연동하기</button>
-                    <button id="signout_button" style="display: none;">로그아웃</button>
                     <pre id="content" style="white-space: pre-wrap;"></pre>
-                   </div>
-                </div>
+                  </div>
               
                   <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
                   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
                   <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+                  
                   
                   <script type="text/javascript">
                     // Client ID and API key from the Developer Console
@@ -215,7 +359,6 @@
                     var SCOPES = "https://www.googleapis.com/auth/calendar.readonly" ;
               
                     var authorizeButton = document.getElementById('authorize_button');
-                    var signoutButton = document.getElementById('signout_button');
               
                     /**
                      *  On load, called to load the auth2 library and API client library.
@@ -224,10 +367,6 @@
                       gapi.load('client:auth2', initClient);
                     }
               
-                    /**
-                     *  Initializes the API client library and sets up sign-in state
-                     *  listeners.
-                     */
                     function initClient() {
                       gapi.client.init({
                         apiKey: API_KEY,
@@ -241,58 +380,34 @@
                         // Handle the initial sign-in state.
                         updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
                         authorizeButton.onclick = handleAuthClick;
-                        signoutButton.onclick = handleSignoutClick;
                       }, function(error) {
                         appendPre(JSON.stringify(error, null, 2));
                       });
                     }
               
-                    /**
-                     *  Called when the signed in status changes, to update the UI
-                     *  appropriately. After a sign-in, the API is called.
-                     */
                     function updateSigninStatus(isSignedIn) {
                       if (isSignedIn) {
                         authorizeButton.style.display = 'none';
-                        signoutButton.style.display = 'none';
                         listUpcomingEvents();
                       } else {
                         authorizeButton.style.display = 'block';
-                        signoutButton.style.display = 'none';
                       }
                     }
               
-                    /**
-                     *  Sign in the user upon button click.
-                     */
                     function handleAuthClick(event) {
                       gapi.auth2.getAuthInstance().signIn();
                     }
               
-                    /**
-                     *  Sign out the user upon button click.
-                     */
                     function handleSignoutClick(event) {
                       gapi.auth2.getAuthInstance().signOut();
                     }
               
-                    /**
-                     * Append a pre element to the body containing the given message
-                     * as its text node. Used to display the results of the API call.
-                     *
-                     * @param {string} message Text to be placed in pre element.
-                     */
                     function appendPre(message) {
                       var pre = document.getElementById('content');
                       var textContent = document.createTextNode(message + '\n');
                       pre.appendChild(textContent);
                     }
               
-                    /**
-                     * Print the summary and start datetime/date of the next ten events in
-                     * the authorized user's calendar. If no events are found an
-                     * appropriate message is printed.
-                     */
                     function listUpcomingEvents() {
                       gapi.client.calendar.events.list({
                         'calendarId': 'primary',
@@ -319,11 +434,6 @@
                         }
                       });
                     }
-              
-                    // Refer to the JavaScript quickstart on how to setup the environment:
-                    // https://developers.google.com/calendar/quickstart/js
-                    // Change the scope to 'https://www.googleapis.com/auth/calendar' and delete any
-                    // stored credentials.
               
                     var event = {
                       'summary': 'Google I/O 2015',
@@ -369,10 +479,6 @@
                     onload="this.onload=function(){};handleClientLoad()"
                     onreadystatechange="if (this.readyState === 'complete') this.onload()">
                   </script>
-                  </script>
-              
-
-    </div></div>
 
     <script src="weather/openweather.js"></script>
     <script src="photo/photo.js"></script>
@@ -380,7 +486,6 @@
     <script type="text/javascript" src="todolist/lib/Bootstrap/bootstrap.min.js"></script>
     <script type="text/javascript" src="todolist/lib/jQuery/jquery.ui.min.js"></script>
     <script type="text/javascript" src="todolist/assets/todo.js"></script>
-    <script type="text/javascript" src="gmail.js"></script>
 
 <script type="text/javascript">
     var widgetCount = 0;
@@ -389,9 +494,25 @@
         widgets[i]=new Array(7); //id type positionx positiony sizewidth sizeheight raw
         
     }
-        widgets[1][1]=5;
-        widgets[1][2]=300;
-        widgets[1][3]=400;
+    widgets[1][1]=5;
+    widgets[1][2]=300;
+    widgets[1][3]=400;
+
+    widgets[2][1]=1;
+    widgets[2][2]=600;
+    widgets[2][3]=800;
+
+    widgets[3][1]=2;
+    widgets[3][2]=800;
+    widgets[3][3]=400;
+
+    widgets[4][1]=3;
+    widgets[4][2]=900;
+    widgets[4][3]=400;
+
+    widgets[5][1]=4;
+    widgets[5][2]=1100;
+    widgets[5][3]=400;
 
         
    
@@ -416,7 +537,7 @@
             document.getElementById("calender").style.position="absolute";
             document.getElementById("calender").style.top=widgets[i][2]+"px";
             document.getElementById("calender").style.left=widgets[i][3]+"px";
-            document.getElementById("calender").style.display="inline";
+            document.getElementById("calendar").style.display="inline";
         } else if(widgets[i][1]==5) { //이메일
             document.getElementById("mail").style.position="absolute";
             document.getElementById("mail").style.top=widgets[i][2]+"px";
