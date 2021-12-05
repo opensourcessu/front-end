@@ -21,6 +21,10 @@
         min-height: 80%;
         height: 400px;
       }
+      #srch {
+        width: 1000px;
+        height: 50px;
+      }
       
       body {
         font-size: 7px;
@@ -30,6 +34,7 @@
         height: 180px;
         width: 400px;
       }
+      #s
 
       .table table-striped table-inbox {
         height: 180px;
@@ -50,10 +55,12 @@
     </style>
 
 
+
+
 </head>
 <body>
     
-    <div class = "weather" id = "weather" >
+    <div class = "weather" id = "weather" style="display: none;">
      <div class = "wrap">
         <div class = "weather-data">
             <h1 class = "location"><class clss = "fas fa-city"></class></h1>
@@ -70,7 +77,7 @@
     </div>
 
 
-    <div class = "photo" id = "photo" style = "display:absolute;" >
+    <div class = "photo" id = "photo" style="display: none;" >
         <div class="image-upload" id="image-upload">
 
                 <div class="image-show" id="image-show"></div>
@@ -98,7 +105,7 @@
 
     </div>
 
-    <div class = "todolist" id = "todolist" >
+    <div class = "todolist" id = "todolist" style="display: none;">
 
             <div id="container">
                     <div id="header"> To Do List </div>
@@ -148,7 +155,25 @@
 
     </div>
 
-    <div class = "mail" id = "mail" >
+    <div class = "search" id = "search" style = "display: none;">
+    
+            <div id="webpage">
+                    <div id="menuholder">
+                        <a class="menu" href="#0" onclick="init();"><img src="Images/네이버.png" width="30" hight="30"></a>
+                     <a class="menu" href="#0" onclick="ggmode();"><img src="Images/구글.png" width="30" hight="30"></a>
+                     <a class="menu" href="#0" onclick="fcmode();"><img src="Images/페북.png" width="30" hight="30"></a>
+                     <a class="menu" href="#0" onclick="gitmode();"><img src="Images/깃.png" width="30" hight="30"></a>
+                     <a class="menu" href="#0" onclick="dmode();"><img src="Images/다음.png" width="25" hight="25"></a>
+         
+                    </div>
+                    <input id="srch" name="searchbox" type="text" autocomplete="off" maxlength="255" onkeydown="return openurl(event);"
+                        autofocus />
+                </div>
+         
+              <script src="JS/home_control.js"></script>
+    </div>
+
+    <div class = "mail" id = "mail" style="display: none;">
             <div id="gcontainer">
                     <button id="authorize-button" class="btn btn-primary hidden">Authorize</button>
               
@@ -163,7 +188,7 @@
                     </table>
             </div>
     </div>
-                  <div class = "calendar" id = "calendar">
+                  <div class = "calendar" id = "calendar" style="display: none;">
 
                   <div id = "calcontainer">
                     <!--Add buttons to initiate auth sequence and sign out-->
@@ -357,25 +382,60 @@
     <script type="text/javascript" src="todolist/assets/todo.js"></script>
     <script type="text/javascript" src="gmail.js"></script>
 
-    <script>
-        // document.getElementById("weather").style.display="none";
-        document.getElementById("todolist").style.display="none";
-        document.getElementById("calendar").style.display="inline";
-        document.getElementById("mail").style.display="inline";
+<script type="text/javascript">
+    var widgetCount = 0;
+    var widgets = new Array(7); //여기에 백에서 정보담아올수있는지..?
+    for(var i=0;i<7;i++) {
+        widgets[i]=new Array(7); //id type positionx positiony sizewidth sizeheight raw
+        
+    }
+        widgets[1][1]=5;
+        widgets[1][2]=300;
+        widgets[1][3]=400;
 
-        document.getElementById("photo").style.display="inline";
-
-        document.getElementById("photo").style.position="absolute";
-        document.getElementById("photo").style.left="100px";
-        document.getElementById("photo").style.top="200px";
-
-        document.getElementById("weather").style.position="absolute";
-        document.getElementById("weather").style.left="500px";
-        document.getElementById("weather").style.top="300px";
-
-
-
-    </script>
+        
+   
+    
+    for(var i=0;i<widgets.length;i++) {
+        if(widgets[i][1]==1) { //검색창
+            document.getElementById("search").style.position="absolute";
+            document.getElementById("search").style.top=widgets[i][2]+"px";
+            document.getElementById("search").style.left=widgets[i][3]+"px";
+            document.getElementById("search").style.display="inline";
+        } else if(widgets[i][1]==2) { //투두
+            document.getElementById("todolist").style.position="absolute";
+            document.getElementById("todolist").style.top=widgets[i][2]+"px";
+            document.getElementById("todolist").style.left=widgets[i][3]+"px";
+            document.getElementById("todolist").style.display="inline";
+        } else if(widgets[i][1]==3) { //날씨
+            document.getElementById("weather").style.position="absolute";
+            document.getElementById("weather").style.top=widgets[i][2]+"px";
+            document.getElementById("weather").style.left=widgets[i][3]+"px";
+            document.getElementById("weather").style.display="inline";
+        } else if(widgets[i][1]==4) { //캘린더
+            document.getElementById("calender").style.position="absolute";
+            document.getElementById("calender").style.top=widgets[i][2]+"px";
+            document.getElementById("calender").style.left=widgets[i][3]+"px";
+            document.getElementById("calender").style.display="inline";
+        } else if(widgets[i][1]==5) { //이메일
+            document.getElementById("mail").style.position="absolute";
+            document.getElementById("mail").style.top=widgets[i][2]+"px";
+            document.getElementById("mail").style.left=widgets[i][3]+"px";
+            document.getElementById("mail").style.display="inline";
+        } else if(widgets[i][1]==6) { //앨범
+            document.getElementById("photo").style.position="absolute";
+            document.getElementById("photo").style.top=widgets[i][2]+"px";
+            document.getElementById("photo").style.left=widgets[i][3]+"px";
+            document.getElementById("photo").style.display="inline";
+           
+        } else if(widgets[i][1]==7) { //포스트잇
+            document.getElementById("postit").style.position="absolute";
+            document.getElementById("postit").style.top=widgets[i][2]+"px";
+            document.getElementById("postit").style.left=widgets[i][3]+"px";
+            document.getElementById("postit").style.display="inline";
+        }
+    }
+</script>
 
 </body>
 </html>
