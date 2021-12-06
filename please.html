@@ -66,6 +66,18 @@
 <body>
   <input type="button" value="수정" onclick="window.location.replace('main/addWidget.html');" />
 
+  <div class="postit" id="postit" style="width:200px;">
+    <textarea style="width:200px;height:180px; font-size: 12px; border-radius: 5px;" id="postitArea">
+
+    </textarea>
+    <div style="display:flex; flex-direction: row; justify-content: space-between; margin-top:5px">
+      <p onclick="changePostitColor()" style="font-size: 12px;border-radius: 10px; background-color: #c4c4c4; padding-left:15px;padding-right: 15px; cursor: pointer;">색상변경</p>
+      <p onclick="postitSave()" style="font-size:12px; border-radius: 10px; background-color: #c4c4c4; padding-left:15px;padding-right: 15px; cursor: pointer;">저장</p>
+    </div>
+    
+
+  </div>
+
   <div class = "weather" id = "weather" style="display: none;">
     <div class = "wrap">
       <div class = "weather-data">
@@ -478,6 +490,7 @@
 
   <script src="weather/openweather.js"></script>
   <script src="photo/photo.js"></script>
+  <script src="/postit.js"></script>
 
   <script type="text/javascript">
 
