@@ -8,7 +8,7 @@ function changeBackgroundColor() {
 }
 
 function changeFont() { //글자 예시를 몇개 주고 선택하게 해야하나?
-    window.open("/main/selectFont.html", "selectFontPopup", "width=460, height=300, left=100, top=50");
+    window.open("selectFont.html", "selectFontPopup", "width=460, height=300, left=100, top=50");
 }
 
 function selectedFont(font) {

@@ -1,22 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel = "stylesheet" href = "weather/openweather.css">
-    <link rel = "stylesheet" href = "photo/photo.css">
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Page Title</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link rel = "stylesheet" href = "weather/openweather.css">
+  <link rel = "stylesheet" href = "photo/photo.css">
 
-    <link rel="stylesheet" href="todolist/lib/Bootstrap/bootstrap.min.css" />
-    <link rel="stylesheet" href="todolist/lib/jQuery/jquery.ui.min.css" />
-    <link rel="stylesheet" href="todolist/assets/todo.css" />
+  <link rel="stylesheet" href="todolist/lib/Bootstrap/bootstrap.min.css" />
+  <link rel="stylesheet" href="todolist/lib/jQuery/jquery.ui.min.css" />
+  <link rel="stylesheet" href="todolist/assets/todo.css" />
 
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
+  <style>
+      @import url('https://fonts.googleapis.com/css2?family=Poor+Story&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Stylish&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
 
+      body {
+        font-size: 7px;
+      }
 
-    <style>
       iframe {
         width: 100%;
         border: 0;
@@ -28,9 +35,9 @@
         height: 50px;
       }
       
-      body {
+      /* body {
         font-size: 7px;
-      }
+      } */
 
       .table {
         height: 180px;
@@ -53,538 +60,506 @@
         display: flex;
         font-size: 10px;
       }
-
-  @import url('https://fonts.googleapis.com/css2?family=Poor+Story&display=swap');
-  @import url('https://fonts.googleapis.com/css2?family=Stylish&display=swap');
-  @import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
-  @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
-
-  body {
-      
-  }
-</style>
-<script>
-
-</script>
-
-
-
-
-
+  </style>
 </head>
-<body>
-  <div class = "weather" id = "weather" style="display: none;">
-     <div class = "wrap">
-        <div class = "weather-data">
-            <h1 class = "location"><class clss = "fas fa-city"></class></h1>
-            <h1 class="current-time"></h1>
-        </div>
-        <div class="weather-temp">
-            <div class = "current-temp">현재 온도 </div>
-            <div class = "icon"></div>
-            <div class="feels-like">체감 온도 </div>
-            <div class="max-temp">최고 온도 </div>
-            <div class="min-temp">최저 온도 </div>
-        </div>
-        </div>
-  </div>
 
+<body>
+  <input type="button" value="수정" onclick="window.location.replace('main/addWidget.html');" />
+
+  <div class = "weather" id = "weather" style="display: none;">
+    <div class = "wrap">
+      <div class = "weather-data">
+        <h1 class = "location"><class clss = "fas fa-city"></class></h1>
+        <h1 class="current-time"></h1>
+      </div>
+      <div class="weather-temp">
+        <div class = "current-temp">현재 온도 </div>
+        <div class = "icon"></div>
+        <div class="feels-like">체감 온도 </div>
+        <div class="max-temp">최고 온도 </div>
+        <div class="min-temp">최저 온도 </div>
+      </div>
+    </div>
+  </div>
 
   <div class = "photo" id = "photo" style="display: none;" >
     <div class="image-upload" id="image-upload">
+      <div class="image-show" id="image-show"></div>
 
-         <div class="image-show" id="image-show"></div>
+      <form method="post" enctype="multipart/form-data">
+        <div class="button">
+          <label for="chooseFile">
+            <br>
+            👉 여기를 눌러 사진을 추가하세요 👈
+          </label>
+        </div>
+        <input type="file" id="chooseFile" name="chooseFile" accept="image/*" onchange="loadFile(this)">
+      </form>
 
-          <form method="post" enctype="multipart/form-data">
-                <div class="button">
-                    <label for="chooseFile">
-                        <br>
-                        👉 여기를 눌러 사진을 추가하세요 👈
-                    </label>
-                </div>
-                <input type="file" id="chooseFile" name="chooseFile" accept="image/*" onchange="loadFile(this)">
-          </form>
-
-          <div class="fileContainer">
-              <div class="fileInput">
-                    <p>FILE : </p>
-                    <p id="fileName"></p>
-              </div>
-              <div class="buttonContainer">
-                    <div class="submitButton" id="submitButton">up</div>
-              </div>
-          </div>
+      <div class="fileContainer">
+        <div class="fileInput">
+          <p>FILE : </p>
+          <p id="fileName"></p>
+        </div>
+        <div class="buttonContainer">
+          <div class="submitButton" id="submitButton">up</div>
+        </div>
+      </div>
     </div>
-
   </div>
 
   <div class = "todolist" id = "todolist" style="display: none;">
-
-            <div id="container">
-                    <div id="header"> To Do List </div>
-                    <div class="task-list task-container" id="pending">
-                        <h3>할 일</h3>
-                        <!--<div class="todo-task">
-                            <div class="task-header">Sample Header</div>
-                            <div class="task-date">25/06/1992</div>
-                            <div class="task-description">Lorem Ipsum Dolor Sit Amet</div>
-                        </div>-->
-                    </div>
-                    <div class="task-list task-container" id="inProgress">
-                        <h3>진행중</h3>
-                    </div>
-                    <div class="task-list task-container" id="completed">
-                        <h3>완료</h3>
-                    </div>
-                    <div class="task-list">
-                        <h3>할 일 추가하기</h3>
-                        <form id="todo-form">
-                            <input type="text" placeholder="제목" />
-                            <textarea placeholder="설명"></textarea>
-                            <input type="date" id="datepicker" placeholder="날짜 (yyyy-mm-dd)" />
-                            <input type="button" class="btn btn-primary" value="추가하기" onclick="todo.add();" />
-                        </form>
-                    
-                        <input type="button" class="btn btn-primary" value="지우기" onclick="todo.clear();" />
-                    
-                        <div id="delete-div">
-                            지우려면 여기로 드래그 하세요
-                        </div>
-                    </div>
-                    <div style="clear:both;"></div>
-                    </div>
-                    <script type="text/javascript">
-                        $( "#datepicker" ).datepicker();
-                        $( "#datepicker" ).datepicker("option", "dateFormat", "yy-mm-dd");
-                
-                        $(".task-container").droppable();
-                        $(".todo-task").draggable({ revert: "valid", revertDuration:200 });
-                        todo.init();
-                    </script>
-                
-
-            </div>
-
-
-    </div>
-
-    <div class = "search" id = "search" style = "display: none;">
+    <div id="container">
+      <div id="header"> To Do List </div>
+      <div class="task-list task-container" id="pending">
+        <h3>할 일</h3>
+        <!--<div class="todo-task">
+            <div class="task-header">Sample Header</div>
+            <div class="task-date">25/06/1992</div>
+            <div class="task-description">Lorem Ipsum Dolor Sit Amet</div>
+        </div>-->
+      </div>
+      <div class="task-list task-container" id="inProgress">
+        <h3>진행중</h3>
+      </div>
+      <div class="task-list task-container" id="completed">
+        <h3>완료</h3>
+      </div>
+      <div class="task-list">
+        <h3>할 일 추가하기</h3>
+        <form id="todo-form">
+          <input type="text" placeholder="제목" />
+          <textarea placeholder="설명"></textarea>
+          <input type="date" id="datepicker" placeholder="날짜 (yyyy-mm-dd)" />
+          <input type="button" class="btn btn-primary" value="추가하기" onclick="todo.add();" />
+        </form>
     
-            <div id="webpage">
-                    <div id="menuholder">
-                        <a class="menu" href="#0" onclick="init();"><img src="Images/네이버.png" width="30" hight="30"></a>
-                        <a class="menu" href="#0" onclick="ggmode();"><img src="Images/구글.png" width="30" hight="30"></a>
-                        <a class="menu" href="#0" onclick="fcmode();"><img src="Images/페북.png" width="30" hight="30"></a>
-                        <a class="menu" href="#0" onclick="gitmode();"><img src="Images/깃.png" width="30" hight="30"></a>
-                        <a class="menu" href="#0" onclick="dmode();"><img src="Images/다음.png" width="25" hight="25"></a>
-         
-                    </div>
-                    <input id="srch" name="searchbox" type="text" autocomplete="off" maxlength="255" onkeydown="return openurl(event);"
-                        autofocus />
-                </div>
-         
-              <script src="JS/home_control.js"></script>
+        <input type="button" class="btn btn-primary" value="지우기" onclick="todo.clear();" />
+    
+        <div id="delete-div">
+          지우려면 여기로 드래그 하세요
+        </div>
+      </div>
+      <div style="clear:both;"></div>
     </div>
-
-    <div class = "mail" id = "mail" style="display: none;">
-                    <button id="authorize-button" class="btn btn-primary hidden">Authorize</button>
-              
-                    <table class="table table-striped table-inbox hidden">
-                      <thead>
-                        <tr>
-                          <th>From</th>
-                          <th>Subject</th>
-                        </tr>
-                      </thead>
-                      <tbody></tbody>
-                    </table>
-    </div>
-
-    <script type="text/javascript">
-      
-      var scopes = 'https://www.googleapis.com/auth/gmail.readonly';
-
-      function handleClientLoad() {
-        gapi.client.setApiKey(API_KEY);
-        window.setTimeout(checkAuth, 1);
-      }
-
-      function checkAuth() {
-        gapi.auth.authorize({
-          client_id: CLIENT_ID,
-          scope: scopes,
-          immediate: true
-        }, handleAuthResult);
-      }
-
-      function handleAuthClick() {
-        gapi.auth.authorize({
-          client_id: CLIENT_ID,
-          scope: scopes,
-          immediate: false
-        }, handleAuthResult);
-        return false;
-      }
-
-      function handleAuthResult(authResult) {
-        if(authResult && !authResult.error) {
-          loadGmailApi();
-          $('#authorize-button').remove();
-          $('.table-inbox').removeClass("hidden");
-        } else {
-          $('#authorize-button').removeClass("hidden");
-          $(document).on('click','#authorize-button', function(){
-            handleAuthClick();
-          });
-        }
-      }
-
-      function loadGmailApi() {
-        gapi.client.load('gmail', 'v1', displayInbox);
-      }
-
-      function displayInbox() {
-        var request = gapi.client.gmail.users.messages.list({
-          'userId': 'me',
-          'labelIds': 'INBOX',
-          'maxResults': 4
-        });
-
-        request.execute(function(response) {
-          $.each(response.messages, function() {
-            var messageRequest = gapi.client.gmail.users.messages.get({
-              'userId': 'me',
-              'id': this.id
-            });
-
-            messageRequest.execute(appendMessageRow);
-          });
-        });
-      }
-
-      function appendMessageRow(message) {
-        $('.table-inbox tbody').append(
-          '<tr>\
-            <td>'+getHeader(message.payload.headers, 'From')+'</td>\
-            <td>\
-              <a href="#message-modal-' + message.id +
-                '" data-toggle="modal" id="message-link-' + message.id+'">' +
-                getHeader(message.payload.headers, 'Subject') +
-              '</a>\
-            </td>\
-          </tr>'
-        );
-
-        $('body').append(
-          '<div class="modal fade" id="message-modal-' + message.id +
-              '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">\
-            <div class="modal-dialog modal-lg">\
-              <div class="modal-content">\
-                <div class="modal-header">\
-                  <button type="button"\
-                          class="close"\
-                          data-dismiss="modal"\
-                          aria-label="Close">\
-                    <span aria-hidden="true">&times;</span></button>\
-                  <h4 class="modal-title" id="myModalLabel">' +
-                    getHeader(message.payload.headers, 'Subject') +
-                  '</h4>\
-                </div>\
-                <div class="modal-body">\
-                  <iframe id="message-iframe-'+message.id+'" srcdoc="<p>Loading...</p>">\
-                  </iframe>\
-                </div>\
-              </div>\
-            </div>\
-          </div>'
-        );
-
-        $('#message-link-'+message.id).on('click', function(){
-          var ifrm = $('#message-iframe-'+message.id)[0].contentWindow.document;
-          $('body', ifrm).html(getBody(message.payload));
-        });
-      }
-
-      function getHeader(headers, index) {
-        var header = '';
-
-        $.each(headers, function(){
-          if(this.name === index){
-            header = this.value;
-          }
-        });
-        return header;
-      }
-
-      function getBody(message) {
-        var encodedBody = '';
-        if(typeof message.parts === 'undefined')
-        {
-          encodedBody = message.body.data;
-        }
-        else
-        {
-          encodedBody = getHTMLPart(message.parts);
-        }
-        encodedBody = encodedBody.replace(/-/g, '+').replace(/_/g, '/').replace(/\s/g, '');
-        return decodeURIComponent(escape(window.atob(encodedBody)));
-      }
-
-      function getHTMLPart(arr) {
-        for(var x = 0; x <= arr.length; x++)
-        {
-          if(typeof arr[x].parts === 'undefined')
-          {
-            if(arr[x].mimeType === 'text/html')
-            {
-              return arr[x].body.data;
-            }
-          }
-          else
-          {
-            return getHTMLPart(arr[x].parts);
-          }
-        }
-        return '';
-      }
-    </script>
-
-
-                  <div class = "calendar" id = "calendar" style="display: none;">
-                    <!--Add buttons to initiate auth sequence and sign out-->
-                    <button id="authorize_button" style="display: none;">연동하기</button>
-                    <pre id="content" style="white-space: pre-wrap;"></pre>
-                  </div>
-              
-                  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-                  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-                  <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
-                  
-                  
-                  <script type="text/javascript">
-                    // Client ID and API key from the Developer Console
-                    var CLIENT_ID = '692904107411-54rl8q8jtj2oioth3kb4t4ssihj5db84.apps.googleusercontent.com';
-                    var API_KEY = 'AIzaSyBNvUHVaiJtACI6H8F43MrXzeO3doLqTNE';
-              
-                    // Array of API discovery doc URLs for APIs used by the quickstart
-                    var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
-              
-                    // Authorization scopes required by the API; multiple scopes can be
-                    // included, separated by spaces.
-                    var SCOPES = "https://www.googleapis.com/auth/calendar.readonly" ;
-              
-                    var authorizeButton = document.getElementById('authorize_button');
-              
-                    /**
-                     *  On load, called to load the auth2 library and API client library.
-                     */
-                    function handleClientLoad() {
-                      gapi.load('client:auth2', initClient);
-                    }
-              
-                    function initClient() {
-                      gapi.client.init({
-                        apiKey: API_KEY,
-                        clientId: CLIENT_ID,
-                        discoveryDocs: DISCOVERY_DOCS,
-                        scope: SCOPES
-                      }).then(function () {
-                        // Listen for sign-in state changes.
-                        gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
-              
-                        // Handle the initial sign-in state.
-                        updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-                        authorizeButton.onclick = handleAuthClick;
-                      }, function(error) {
-                        appendPre(JSON.stringify(error, null, 2));
-                      });
-                    }
-              
-                    function updateSigninStatus(isSignedIn) {
-                      if (isSignedIn) {
-                        authorizeButton.style.display = 'none';
-                        listUpcomingEvents();
-                      } else {
-                        authorizeButton.style.display = 'block';
-                      }
-                    }
-              
-                    function handleAuthClick(event) {
-                      gapi.auth2.getAuthInstance().signIn();
-                    }
-              
-                    function handleSignoutClick(event) {
-                      gapi.auth2.getAuthInstance().signOut();
-                    }
-              
-                    function appendPre(message) {
-                      var pre = document.getElementById('content');
-                      var textContent = document.createTextNode(message + '\n');
-                      pre.appendChild(textContent);
-                    }
-              
-                    function listUpcomingEvents() {
-                      gapi.client.calendar.events.list({
-                        'calendarId': 'primary',
-                        'timeMin': (new Date()).toISOString(),
-                        'showDeleted': false,
-                        'singleEvents': true,
-                        'maxResults': 10,
-                        'orderBy': 'startTime'
-                      }).then(function(response) {
-                        var events = response.result.items;
-                        appendPre('Upcoming events:');
-              
-                        if (events.length > 0) {
-                          for (i = 0; i < events.length; i++) {
-                            var event = events[i];
-                            var when = event.start.dateTime;
-                            if (!when) {
-                              when = event.start.date;
-                            }
-                            appendPre(event.summary + ' (' + when + ')')
-                          }
-                        } else {
-                          appendPre('No upcoming events found.');
-                        }
-                      });
-                    }
-              
-                    var event = {
-                      'summary': 'Google I/O 2015',
-                      'location': '800 Howard St., San Francisco, CA 94103',
-                      'description': 'A chance to hear more about Google\'s developer products.',
-                      'start': {
-                        'dateTime': '2015-05-28T09:00:00-07:00',
-                        'timeZone': 'America/Los_Angeles'
-                      },
-                      'end': {
-                        'dateTime': '2015-05-28T17:00:00-07:00',
-                        'timeZone': 'America/Los_Angeles'
-                      },
-                      'recurrence': [
-                        'RRULE:FREQ=DAILY;COUNT=2'
-                      ],
-                      'attendees': [
-                        {'email': 'lpage@example.com'},
-                        {'email': 'sbrin@example.com'}
-                      ],
-                     'reminders': {
-                        'useDefault': false,
-                        'overrides': [
-                          {'method': 'email', 'minutes': 24 * 60},
-                          {'method': 'popup', 'minutes': 10}
-                        ]
-                      }
-                    };
-              
-                    var request = gapi.client.calendar.events.insert({
-                      'calendarId': 'primary',
-                      'resource': event
-                    });
-              
-                    request.execute(function(event) {
-                      appendPre('Event created: ' + event.htmlLink);
-                    });
-              
-              
-                  </script>
-              
-                  <script async defer src="https://apis.google.com/js/api.js"
-                    onload="this.onload=function(){};handleClientLoad()"
-                    onreadystatechange="if (this.readyState === 'complete') this.onload()">
-                  </script>
-
-    <script src="weather/openweather.js"></script>
-    <script src="photo/photo.js"></script>
+    
     <script type="text/javascript" src="todolist/lib/jQuery/jquery.min.js"></script>
     <script type="text/javascript" src="todolist/lib/Bootstrap/bootstrap.min.js"></script>
     <script type="text/javascript" src="todolist/lib/jQuery/jquery.ui.min.js"></script>
     <script type="text/javascript" src="todolist/assets/todo.js"></script>
+    <script type="text/javascript">
+        $( "#datepicker" ).datepicker();
+        $( "#datepicker" ).datepicker("option", "dateFormat", "yy-mm-dd");
 
-<script type="text/javascript">
-    var widgetCount = 0;
-    var widgets = new Array(7); //여기에 백에서 정보담아올수있는지..?
-    for(var i=0;i<7;i++) {
-        widgets[i]=new Array(7); //id type positionx positiony sizewidth sizeheight raw
-        
+        $(".task-container").droppable();
+        $(".todo-task").draggable({ revert: "valid", revertDuration:200 });
+        todo.init();
+    </script>
+  </div>
+
+  <div class = "search" id = "search" style = "display: none;">
+    <div id="webpage">
+      <div id="menuholder">
+        <a class="menu" href="#0" onclick="init();"><img src="Images/네이버.png" width="30" hight="30"></a>
+        <a class="menu" href="#0" onclick="ggmode();"><img src="Images/구글.png" width="30" hight="30"></a>
+        <a class="menu" href="#0" onclick="fcmode();"><img src="Images/페북.png" width="30" hight="30"></a>
+        <a class="menu" href="#0" onclick="gitmode();"><img src="Images/깃.png" width="30" hight="30"></a>
+        <a class="menu" href="#0" onclick="dmode();"><img src="Images/다음.png" width="25" hight="25"></a>
+      </div>
+      <input id="srch" name="searchbox" type="text" autocomplete="off" maxlength="255" onkeydown="return openurl(event);" autofocus />
+    </div>
+    <script src="JS/home_control.js"></script>
+  </div>
+
+  <div class = "mail" id = "mail" style="display: none;">
+    <button id="authorize-button" class="btn btn-primary hidden">Authorize</button>
+
+    <table class="table table-striped table-inbox hidden">
+      <thead>
+        <tr>
+          <th>From</th>
+          <th>Subject</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script type="text/javascript">
+      
+    var scopes = 'https://www.googleapis.com/auth/gmail.readonly';
+
+    function handleClientLoad() {
+      gapi.client.setApiKey(API_KEY);
+      window.setTimeout(checkAuth, 1);
+    }
+
+    function checkAuth() {
+      gapi.auth.authorize({
+        client_id: CLIENT_ID,
+        scope: scopes,
+        immediate: true
+      }, handleAuthResult);
+    }
+
+    function handleAuthClick() {
+      gapi.auth.authorize({
+        client_id: CLIENT_ID,
+        scope: scopes,
+        immediate: false
+      }, handleAuthResult);
+      return false;
+    }
+
+    function handleAuthResult(authResult) {
+      if(authResult && !authResult.error) {
+        loadGmailApi();
+        $('#authorize-button').remove();
+        $('.table-inbox').removeClass("hidden");
+      } else {
+        $('#authorize-button').removeClass("hidden");
+        $(document).on('click','#authorize-button', function(){
+          handleAuthClick();
+        });
+      }
+    }
+
+    function loadGmailApi() {
+      gapi.client.load('gmail', 'v1', displayInbox);
+    }
+
+    function displayInbox() {
+      var request = gapi.client.gmail.users.messages.list({
+        'userId': 'me',
+        'labelIds': 'INBOX',
+        'maxResults': 4
+      });
+
+      request.execute(function(response) {
+        $.each(response.messages, function() {
+          var messageRequest = gapi.client.gmail.users.messages.get({
+            'userId': 'me',
+            'id': this.id
+          });
+
+          messageRequest.execute(appendMessageRow);
+        });
+      });
+    }
+
+    function appendMessageRow(message) {
+      $('.table-inbox tbody').append(
+        '<tr>\
+          <td>'+getHeader(message.payload.headers, 'From')+'</td>\
+          <td>\
+            <a href="#message-modal-' + message.id +
+              '" data-toggle="modal" id="message-link-' + message.id+'">' +
+              getHeader(message.payload.headers, 'Subject') +
+            '</a>\
+          </td>\
+        </tr>'
+      );
+
+      $('body').append(
+        '<div class="modal fade" id="message-modal-' + message.id +
+            '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">\
+          <div class="modal-dialog modal-lg">\
+            <div class="modal-content">\
+              <div class="modal-header">\
+                <button type="button"\
+                        class="close"\
+                        data-dismiss="modal"\
+                        aria-label="Close">\
+                  <span aria-hidden="true">&times;</span></button>\
+                <h4 class="modal-title" id="myModalLabel">' +
+                  getHeader(message.payload.headers, 'Subject') +
+                '</h4>\
+              </div>\
+              <div class="modal-body">\
+                <iframe id="message-iframe-'+message.id+'" srcdoc="<p>Loading...</p>">\
+                </iframe>\
+              </div>\
+            </div>\
+          </div>\
+        </div>'
+      );
+
+      $('#message-link-'+message.id).on('click', function(){
+        var ifrm = $('#message-iframe-'+message.id)[0].contentWindow.document;
+        $('body', ifrm).html(getBody(message.payload));
+      });
+    }
+
+    function getHeader(headers, index) {
+      var header = '';
+
+      $.each(headers, function(){
+        if(this.name === index){
+          header = this.value;
+        }
+      });
+      return header;
+    }
+
+    function getBody(message) {
+      var encodedBody = '';
+      if(typeof message.parts === 'undefined')
+      {
+        encodedBody = message.body.data;
+      }
+      else
+      {
+        encodedBody = getHTMLPart(message.parts);
+      }
+      encodedBody = encodedBody.replace(/-/g, '+').replace(/_/g, '/').replace(/\s/g, '');
+      return decodeURIComponent(escape(window.atob(encodedBody)));
+    }
+
+    function getHTMLPart(arr) {
+      for(var x = 0; x <= arr.length; x++)
+      {
+        if(typeof arr[x].parts === 'undefined')
+        {
+          if(arr[x].mimeType === 'text/html')
+          {
+            return arr[x].body.data;
+          }
+        }
+        else
+        {
+          return getHTMLPart(arr[x].parts);
+        }
+      }
+      return '';
+    }
+  </script>
+
+  <div class = "calendar" id = "calendar" style="display: none;">
+    <!--Add buttons to initiate auth sequence and sign out-->
+    <button id="authorize_button" style="display: none;">연동하기</button>
+    <pre id="content" style="white-space: pre-wrap;"></pre>
+  </div>
+
+  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+  
+  <script type="text/javascript">
+    // Client ID and API key from the Developer Console
+    var CLIENT_ID = '692904107411-54rl8q8jtj2oioth3kb4t4ssihj5db84.apps.googleusercontent.com';
+    var API_KEY = 'AIzaSyBNvUHVaiJtACI6H8F43MrXzeO3doLqTNE';
+
+    // Array of API discovery doc URLs for APIs used by the quickstart
+    var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+
+    // Authorization scopes required by the API; multiple scopes can be
+    // included, separated by spaces.
+    var SCOPES = "https://www.googleapis.com/auth/calendar.readonly" ;
+
+    var authorizeButton = document.getElementById('authorize_button');
+
+    /**
+     *  On load, called to load the auth2 library and API client library.
+     */
+    function handleClientLoad() {
+      gapi.load('client:auth2', initClient);
+    }
+
+    function initClient() {
+      gapi.client.init({
+        apiKey: API_KEY,
+        clientId: CLIENT_ID,
+        discoveryDocs: DISCOVERY_DOCS,
+        scope: SCOPES
+      }).then(function () {
+        // Listen for sign-in state changes.
+        gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+
+        // Handle the initial sign-in state.
+        updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+        authorizeButton.onclick = handleAuthClick;
+      }, function(error) {
+        appendPre(JSON.stringify(error, null, 2));
+      });
+    }
+
+    function updateSigninStatus(isSignedIn) {
+      if (isSignedIn) {
+        authorizeButton.style.display = 'none';
+        listUpcomingEvents();
+      } else {
+        authorizeButton.style.display = 'block';
+      }
+    }
+
+    function handleAuthClick(event) {
+      gapi.auth2.getAuthInstance().signIn();
+    }
+
+    function handleSignoutClick(event) {
+      gapi.auth2.getAuthInstance().signOut();
+    }
+
+    function appendPre(message) {
+      var pre = document.getElementById('content');
+      var textContent = document.createTextNode(message + '\n');
+      pre.appendChild(textContent);
+    }
+
+    function listUpcomingEvents() {
+      gapi.client.calendar.events.list({
+        'calendarId': 'primary',
+        'timeMin': (new Date()).toISOString(),
+        'showDeleted': false,
+        'singleEvents': true,
+        'maxResults': 10,
+        'orderBy': 'startTime'
+      }).then(function(response) {
+        var events = response.result.items;
+        appendPre('Upcoming events:');
+
+        if (events.length > 0) {
+          for (i = 0; i < events.length; i++) {
+            var event = events[i];
+            var when = event.start.dateTime;
+            if (!when) {
+              when = event.start.date;
+            }
+            appendPre(event.summary + ' (' + when + ')')
+          }
+        } else {
+          appendPre('No upcoming events found.');
+        }
+      });
+    }
+
+    var event = {
+      'summary': 'Google I/O 2015',
+      'location': '800 Howard St., San Francisco, CA 94103',
+      'description': 'A chance to hear more about Google\'s developer products.',
+      'start': {
+        'dateTime': '2015-05-28T09:00:00-07:00',
+        'timeZone': 'America/Los_Angeles'
+      },
+      'end': {
+        'dateTime': '2015-05-28T17:00:00-07:00',
+        'timeZone': 'America/Los_Angeles'
+      },
+      'recurrence': [
+        'RRULE:FREQ=DAILY;COUNT=2'
+      ],
+      'attendees': [
+        {'email': 'lpage@example.com'},
+        {'email': 'sbrin@example.com'}
+      ],
+      'reminders': {
+        'useDefault': false,
+        'overrides': [
+          {'method': 'email', 'minutes': 24 * 60},
+          {'method': 'popup', 'minutes': 10}
+        ]
+      }
+    };
+
+    var request = gapi.client.calendar.events.insert({
+      'calendarId': 'primary',
+      'resource': event
+    });
+
+    request.execute(function(event) {
+      appendPre('Event created: ' + event.htmlLink);
+    });
+  </script>
+
+  <script async defer src="https://apis.google.com/js/api.js"
+    onload="this.onload=function(){};handleClientLoad()"
+    onreadystatechange="if (this.readyState === 'complete') this.onload()">
+  </script>
+
+  <script src="weather/openweather.js"></script>
+  <script src="photo/photo.js"></script>
+
+  <script type="text/javascript">
+
+    const request_url = "http://localhost:8000";
+
+    function req_get_widget_lists() {
+      let access_token = localStorage.getItem("access_token");
+  
+      return $.ajax({
+        url: request_url + `/widgets`,
+        method: "GET",
+        headers: { Authorization: `jwt ${access_token}` },
+        dataType: "json",
+      });
+    }
+
+    // id type positionx positiony sizewidth sizeheight raw
+    function get_widgets(callback) {
+      req_get_widget_lists()
+      .done(function (req_body) {
+        const widgets = req_body.widgets.map(val => [
+          val.widget_id,
+          val.widget_type_id,
+          val.location.pos[0],
+          val.location.pos[1],
+          val.location.size[0],
+          val.location.size[1],
+          val.raw_data
+        ]);
+        callback(widgets);
+      });
+    }
+
+    function req_get_page_setting() {
+      let access_token = localStorage.getItem("access_token");
+  
+      return $.ajax({
+        url: request_url + `/pagesetting`,
+        method: "GET",
+        headers: { Authorization: `jwt ${access_token}` },
+        dataType: "json",
+      });
     }
   
-      
-  var colorInfo = "rgb(196, 22, 222)"; //배경색깔 정보 넣기
-  var fontInfo = `"Nanum Pen Script", cursive`; //폰트 정보 넣기
-  window.onload = function () {
-    document.write("hi");
-    document.body.style.backgroundColor = colorInfo;
-    document.body.style.fontFamily = fontInfo;
-  }
+    req_get_page_setting()
+    .done(function (body) {
+      // var colorInfo = "rgb(196, 22, 222)"; //배경색깔 정보 넣기
+      // var fontInfo = `"Nanum Pen Script", cursive`; //폰트 정보 넣기
+      // window.onload = function () {
+      // }
+      document.body.style.backgroundColor = body.bg_color;
+      document.body.style.fontFamily = body.font;
+    })
 
-   
-    
-    widgets[1][1]=5;
-    widgets[1][2]=300;
-    widgets[1][3]=400;
-
-    widgets[2][1]=1;
-    widgets[2][2]=600;
-    widgets[2][3]=800;
-
-    widgets[3][1]=2;
-    widgets[3][2]=800;
-    widgets[3][3]=400;
-
-    widgets[4][1]=3;
-    widgets[4][2]=900;
-    widgets[4][3]=400;
-
-    widgets[5][1]=4;
-    widgets[5][2]=1100;
-    widgets[5][3]=400;
-
-        
-   
-    
-    for(var i=0;i<widgets.length;i++) {
+    get_widgets(function (widgets) {
+      for(var i=0;i<widgets.length;i++) {
+        let ele;
         if(widgets[i][1]==1) { //검색창
-            document.getElementById("search").style.position="absolute";
-            document.getElementById("search").style.top=widgets[i][2]+"px";
-            document.getElementById("search").style.left=widgets[i][3]+"px";
-            document.getElementById("search").style.display="inline";
+          ele = document.getElementById("search");
         } else if(widgets[i][1]==2) { //투두
-            document.getElementById("todolist").style.position="absolute";
-            document.getElementById("todolist").style.top=widgets[i][2]+"px";
-            document.getElementById("todolist").style.left=widgets[i][3]+"px";
-            document.getElementById("todolist").style.display="inline";
+          ele = document.getElementById("todolist");
         } else if(widgets[i][1]==3) { //날씨
-            document.getElementById("weather").style.position="absolute";
-            document.getElementById("weather").style.top=widgets[i][2]+"px";
-            document.getElementById("weather").style.left=widgets[i][3]+"px";
-            document.getElementById("weather").style.display="inline";
+          ele = document.getElementById("weather");
         } else if(widgets[i][1]==4) { //캘린더
-            document.getElementById("calender").style.position="absolute";
-            document.getElementById("calender").style.top=widgets[i][2]+"px";
-            document.getElementById("calender").style.left=widgets[i][3]+"px";
-            document.getElementById("calendar").style.display="inline";
+          ele = document.getElementById("calender");
         } else if(widgets[i][1]==5) { //이메일
-            document.getElementById("mail").style.position="absolute";
-            document.getElementById("mail").style.top=widgets[i][2]+"px";
-            document.getElementById("mail").style.left=widgets[i][3]+"px";
-            document.getElementById("mail").style.display="inline";
+          ele = document.getElementById("mail");
         } else if(widgets[i][1]==6) { //앨범
-            document.getElementById("photo").style.position="absolute";
-            document.getElementById("photo").style.top=widgets[i][2]+"px";
-            document.getElementById("photo").style.left=widgets[i][3]+"px";
-            document.getElementById("photo").style.display="inline";
-           
+          ele = document.getElementById("photo");
         } else if(widgets[i][1]==7) { //포스트잇
-            document.getElementById("postit").style.position="absolute";
-            document.getElementById("postit").style.top=widgets[i][2]+"px";
-            document.getElementById("postit").style.left=widgets[i][3]+"px";
-            document.getElementById("postit").style.display="inline";
+          ele = document.getElementById("postit");
+        } else {
+          continue;
         }
-    }
-    
-</script>
+
+        ele.style.position = "absolute";
+        ele.style.left = widgets[i][2] + "px";
+        ele.style.top = widgets[i][3] + "px";
+        ele.style.display = "inline";
+      }
+    });
+  </script>
 
 </body>
 </html>

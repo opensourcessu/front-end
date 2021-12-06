@@ -3,7 +3,7 @@ var todo = todo || {},
 
 // data = data || {};
 
-localStorage.setItem("access_token", "");
+// localStorage.setItem("access_token", "");
 
 
 (function (todo, data, $) {
