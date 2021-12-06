@@ -228,18 +228,18 @@ $( function() {
                     var offset=$(this).offset();
                     var xPos=offset.left;
                     var yPos=offset.top;
-                    $(this).text(xPos+" "+yPos);
+                    //$(this).text(xPos+" "+yPos);
                     const id = $(this).attr("id");
                     const ele = document.getElementById(id);
                     const widget_size = [
                         undefined,
                         [1200, 135], // 검색창
-                        [800, 300], // 투두
-                        [100, 135], // 날씨
-                        [100, 135], // 캘린더
-                        [100, 135], // 이메일
-                        [100, 135], // 이미지
-                        [100, 135] // 포스트잇
+                        [1060, 240], // 투두
+                        [400, 400], // 날씨
+                        [400, 135], // 캘린더
+                        [400, 180], // 이메일
+                        [300, 200], // 이미지
+                        [200, 200] // 포스트잇
                     ];
 
                     ele.style.width = widget_size[parseInt(id)][0] + "px";
