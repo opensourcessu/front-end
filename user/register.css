@@ -73,12 +73,12 @@
     outline: none;
   }
 
-  .register_nickname {
+  .register_name {
     margin-top: 20px;
     width: 80%;
   }
   
-  .register_nickname input {
+  .register_name input {
     width: 100%;
     height: 50px;
     border-radius: 30px;

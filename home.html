@@ -33,7 +33,7 @@
 
 	<body>
 		<div class="btn_wrap">
-			<button class="login_btn">login</button>
+			<button class="login_btn" onclick="window.location.href='user/login.html';">login</button>
 		</div>
 	    <div id="webpage">
 	        <div id="menuholder">
@@ -48,7 +48,33 @@
 	            autofocus />
 	    </div>
 
+		<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 	    <script src="JS/home_control.js"></script>
+		<script type="text/javascript">
+			
+			function req_login_check(access) {
+				const request_url = "http://localhost:8000/users/information";
+
+				return $.ajax({
+					url: request_url,
+					method: "GET",
+					headers: { Authorization: `jwt ${access}` },
+					dataType: "json",
+				});
+			}
+			
+			let access_token = localStorage.getItem("access_token");
+			if (access_token !== null) {
+				req_login_check(access_token)
+				.done(function (body, textStatus, xhr) {
+					window.location.replace("please.html");
+				})
+				.fail(function (body, textStatus, xhr) {
+					localStorage.removeItem("access_token");
+				});
+			}
+
+		</script>
 
 	</body>
 </html>

@@ -14,25 +14,58 @@
             <h2>Log-in</h2>
             
             <div class="login_id">
-                <h4>E-mail</h4>
-                <input type="email" name="" id="" placeholder="Email">
+                <h4>ID</h4>
+                <input type="text" name="" id="id_input" placeholder="ID">
             </div>
             <div class="login_pw">
                 <h4>Password</h4>
-                <input type="password" name="" id="" placeholder="Password">
+                <input type="password" name="" id="password_input" placeholder="Password">
             </div>
             <div class="login_etc">
-                <div class="checkbox">
-                <input type="checkbox" name="" id=""> Remember Me?
-                </div>
-                <div class="forgot_pw">
-                <a href="">Forgot Password?</a>
+                <div></div>
+                <div class="sign_up">
+                <a href="register.html">Sign up</a>
             </div>
             </div>
             <div class="submit">
-                <input type="submit" value="submit">
+                <input type="submit" value="submit" onclick="login();">
             </div>
         </div>
     </div>
+
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript">
+        function req_login(id, password) {
+            const request_url = "http://localhost:8000/users/login";
+
+            const req_body = {
+                id, password
+            };
+
+            return $.ajax({
+                url: request_url,
+                method: "POST",
+                contentType: "application/json; charset=UTF-8",
+                data: JSON.stringify(req_body),
+                dataType: "json",
+            });
+        }
+
+        function login() {
+            let id = document.getElementById("id_input");
+            let password = document.getElementById("password_input");
+
+            req_login(id.value, password.value)
+            .done(function (body) {
+                localStorage.setItem("access_token", body.access_token);
+                window.location.replace("../please.html");
+            })
+            .fail(function (xhr) {
+                id.value = "";
+                password.value = "";
+                alert(`로그인 실패 : ${xhr.status}`);
+            });
+        }
+    </script>
 </body>
 </html>
