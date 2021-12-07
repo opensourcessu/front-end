@@ -355,7 +355,7 @@
   <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
-  
+
   <script type="text/javascript">
     // Client ID and API key from the Developer Console
     var CLIENT_ID = '692904107411-54rl8q8jtj2oioth3kb4t4ssihj5db84.apps.googleusercontent.com';
@@ -626,7 +626,7 @@
         } else if(widgets[i][1]==3) { //날씨
           ele = document.getElementById("weather");
         } else if(widgets[i][1]==4) { //캘린더
-          ele = document.getElementById("calender");
+          ele = document.getElementById("calendar");
         } else if(widgets[i][1]==5) { //이메일
           ele = document.getElementById("mail");
         } else if(widgets[i][1]==6) { //앨범
@@ -647,7 +647,7 @@
           }
         } else if(widgets[i][1]==7) { //포스트잇
           ele = document.getElementById("postit");
-          let postit_data = JSON.parse(widgets[i][6]);
+          let postit_data = widgets[i][6] !== null ? JSON.parse(widgets[i][6]) : { bg_color: "#ffffff", text: "" };
           let postit_textarea = ele.querySelector("#postitArea");
           postit_textarea.value = postit_data.text;
           postit_textarea.style.backgroundColor = postit_data.bg_color;
