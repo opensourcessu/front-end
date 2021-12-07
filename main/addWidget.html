@@ -158,7 +158,7 @@ $( function() {
             });
         }
 
-        function req_create_widget(widget_type_id, pos_x, pos_y, size_x, size_y) {
+        function req_create_widget(widget_type_id, pos_x, pos_y, size_x, size_y, raw_data) {
             let access_token = localStorage.getItem("access_token");
 
             const req_body = {
@@ -167,7 +167,7 @@ $( function() {
                 pos_y,
                 size_x,
                 size_y,
-                // raw_data
+                raw_data
             };
 
             return $.ajax({
@@ -337,6 +337,7 @@ $( function() {
                             widget.pos_y,
                             widget.size_x,
                             widget.size_y,
+                            widget.raw_data === null ? undefined : widget.raw_data
                         ));
                     }
 

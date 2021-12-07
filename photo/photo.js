@@ -1,6 +1,3 @@
-var submit = document.getElementById('submitButton');
-submit.onclick = showImage;     //Submit 버튼 클릭시 이미지 보여주기
-
 function showImage() {
     var newImage = document.getElementById('image-show').lastElementChild;
     newImage.style.visibility = "visible";
@@ -19,16 +16,26 @@ function loadFile(input) {
 
     var newImage = document.createElement("img");
     newImage.setAttribute("class", 'img');
+    newImage.setAttribute("id", "new-image");
 
-    newImage.src = URL.createObjectURL(file);   
+    let img_base64;
+    let reader = new FileReader();
+    reader.onload = function () {
+        img_base64 = reader.result;
+        console.log(img_base64);
 
-    // newImage.style.width = "100%";
-    // newImage.style.height = "100%";
-    newImage.style.objectFit = "cover";
+        newImage.src = img_base64; // URL.createObjectURL(file);
 
-    newImage.style.visibility = "hidden";   //버튼을 누르기 전까지는 이미지 숨기기
-    // newImage.style.objectFit = "contain";
+        // newImage.style.width = "100%";
+        // newImage.style.height = "100%";
+        newImage.style.objectFit = "cover";
 
-    var container = document.getElementById('image-show');
-    container.appendChild(newImage);
+        newImage.style.visibility = "hidden";   //버튼을 누르기 전까지는 이미지 숨기기
+        // newImage.style.objectFit = "contain";
+
+        var container = document.getElementById('image-show');
+        container.appendChild(newImage);
+    }
+
+    reader.readAsDataURL(file);
 };

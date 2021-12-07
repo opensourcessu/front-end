@@ -71,8 +71,8 @@
 
     </textarea>
     <div style="display:flex; flex-direction: row; justify-content: space-between; margin-top:5px">
-      <p onclick="changePostitColor()" style="font-size: 12px;border-radius: 10px; background-color: #c4c4c4; padding-left:15px;padding-right: 15px; cursor: pointer;">색상변경</p>
-      <p onclick="postitSave()" style="font-size:12px; border-radius: 10px; background-color: #c4c4c4; padding-left:15px;padding-right: 15px; cursor: pointer;">저장</p>
+      <p onclick="change_postit_color()" style="font-size: 12px;border-radius: 10px; background-color: #c4c4c4; padding-left:15px;padding-right: 15px; cursor: pointer;">색상변경</p>
+      <p onclick="save_postit()" style="font-size:12px; border-radius: 10px; background-color: #c4c4c4; padding-left:15px;padding-right: 15px; cursor: pointer;">저장</p>
     </div>
     
 
@@ -114,7 +114,7 @@
           <p id="fileName"></p>
         </div>
         <div class="buttonContainer">
-          <div class="submitButton" id="submitButton">up</div>
+          <div class="submitButton" id="submitButton" onclick="showImage(); save_img();">up</div>
         </div>
       </div>
     </div>
@@ -490,7 +490,6 @@
 
   <script src="weather/openweather.js"></script>
   <script src="photo/photo.js"></script>
-  <script src="/postit.js"></script>
 
   <script type="text/javascript">
 
@@ -534,6 +533,78 @@
         dataType: "json",
       });
     }
+    
+    function req_modify_widget(widget_id, pos_x, pos_y, size_x, size_y, raw_data) {
+      let access_token = localStorage.getItem("access_token");
+
+      const req_body = {
+        pos_x,
+        pos_y,
+        size_x,
+        size_y,
+        raw_data
+      };
+
+      return $.ajax({
+        url: request_url + `/widgets/${widget_id}`,
+        method: "PATCH",
+        headers: { Authorization: `jwt ${access_token}` },
+        contentType: "application/json; charset=UTF-8",
+        data: JSON.stringify(req_body),
+        dataType: "json",
+      });
+    }
+    
+    function save_img() {
+      let img_html = document.getElementById("new-image");
+      if (img_html !== null) {
+        get_widgets(function (widgets) {
+          let index = widgets.findIndex(val => val[1] === 6);
+          if (index !== undefined) {
+            let img_widget = widgets[index];
+            req_modify_widget(
+              img_widget[0],
+              img_widget[2],
+              img_widget[3],
+              img_widget[4],
+              img_widget[5],
+              img_html.src,
+            );
+          }
+        });
+      }
+    }
+
+    function change_postit_color() {
+      let color = prompt("색깔을 입력해주세요");
+      document.getElementById("postitArea").style.backgroundColor = color;
+    }
+
+    function save_postit() {
+      let postit_textarea = document.getElementById("postitArea")
+      let color = postit_textarea.style.backgroundColor;
+      let text = postit_textarea.value;
+
+      if (postit_textarea !== null) {
+        get_widgets(function (widgets) {
+          let index = widgets.findIndex(val => val[1] === 7);
+          if (index !== undefined) {
+            let postit_widget = widgets[index];
+            req_modify_widget(
+              postit_widget[0],
+              postit_widget[2],
+              postit_widget[3],
+              postit_widget[4],
+              postit_widget[5],
+              JSON.stringify({
+                bg_color: color,
+                text: text
+              })
+            );
+          }
+        });
+      }
+    }
   
     req_get_page_setting()
     .done(function (body) {
@@ -543,7 +614,7 @@
       // }
       document.body.style.backgroundColor = body.bg_color;
       document.body.style.fontFamily = body.font;
-    })
+    });
 
     get_widgets(function (widgets) {
       for(var i=0;i<widgets.length;i++) {
@@ -560,8 +631,26 @@
           ele = document.getElementById("mail");
         } else if(widgets[i][1]==6) { //앨범
           ele = document.getElementById("photo");
+          let img_data = widgets[i][6];
+          if (img_data !== null) {
+            let img_element = document.createElement("img");
+            img_element.setAttribute("class", "img");
+            img_element.setAttribute("id", "new-image");
+            img_element.src = img_data;
+            img_element.style.objectFit = "cover";
+            img_element.style.visibility = "visible";
+
+            let container = document.getElementById('image-show');
+            container.appendChild(img_element);
+
+            document.getElementById('image-upload').style.visibility = 'hidden';
+          }
         } else if(widgets[i][1]==7) { //포스트잇
           ele = document.getElementById("postit");
+          let postit_data = JSON.parse(widgets[i][6]);
+          let postit_textarea = ele.querySelector("#postitArea");
+          postit_textarea.value = postit_data.text;
+          postit_textarea.style.backgroundColor = postit_data.bg_color;
         } else {
           continue;
         }
