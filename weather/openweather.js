@@ -53,11 +53,11 @@ function loadWeather(data){
 
 
 
-    location.append(data.name);
+    // location.append(data.name);
     currentTemp.append(data.main.temp);
-    feelsLike.append(data.main.feels_like);
-    maxTemp.append(data.main.temp_max);
-    minTemp.append(data.main.temp_min);
+    // feelsLike.append(data.main.feels_like);
+    // maxTemp.append(data.main.temp_max);
+    // minTemp.append(data.main.temp_min);
 
     icon.innerHTML = "<img src = http://openweathermap.org/img/wn/"+weatherIcon+".png>";
 
