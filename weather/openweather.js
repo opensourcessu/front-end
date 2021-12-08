@@ -23,7 +23,7 @@ const getJson = function(url,callback) {
 
 
 
-getJson('http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=49f2a44ba633f02db2d706240b4c42d4&units=metric'),
+getJson('https://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=49f2a44ba633f02db2d706240b4c42d4&units=metric'),
 function(err,data){
     if(err!== null){
         alert('sorry,');
