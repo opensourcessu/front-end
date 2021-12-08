@@ -7,7 +7,7 @@ var todo = todo || {},
 
 
 (function (todo, data, $) {
-    const request_url = "http://localhost:8000"
+    const request_url = "https://op2021-sweethomepage.herokuapp.com"
     
     function req_get_task_list() {
         var access_token = localStorage.getItem("access_token");
